@@ -38,7 +38,7 @@ function Preset() {
         <label>
           Finish Time:
           <input
-            type="text"
+            type="time"
             value={finishtime}
             onChange={e => setFinishtime(e.target.value)}
           />
