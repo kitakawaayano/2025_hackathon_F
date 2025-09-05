@@ -1,5 +1,6 @@
 import React from 'react' 
 import Preset from './preset'
+import Task from './task'
 
 function App() {
 
@@ -7,6 +8,7 @@ function App() {
     <>
       <h1>Hello, World!</h1>
       <Preset />
+      <Task />
     </>
   )
 }
