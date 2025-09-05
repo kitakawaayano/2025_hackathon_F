@@ -1,0 +1,44 @@
+{
+  "presets": [
+    {
+      "id": "1",
+      "preset_name": "平日のルーチン",
+      "finish_time": "21:00"
+    },
+    {
+      "id": "2",
+      "preset_name": "休日のルーチン",
+      "finish_time": "18:00"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1",
+      "task_name": "掃除",
+      "task_time": 30,
+      "Importance": 2,
+      "preset_id": "1"
+    },
+    {
+      "id": "2",
+      "task_name": "買い物",
+      "task_time": 45,
+      "Importance": 3,
+      "preset_id": "1"
+    },
+    {
+      "id": "3",
+      "task_name": "勉強",
+      "task_time": 60,
+      "Importance": 5,
+      "preset_id": "2"
+    },
+    {
+      "id": "4",
+      "task_name": "運動",
+      "task_time": 40,
+      "Importance": 4,
+      "preset_id": "2"
+    }
+  ]
+}
