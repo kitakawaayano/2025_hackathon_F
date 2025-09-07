@@ -11,11 +11,13 @@ function App() {
     <BrowserRouter>
       <main>
         <SideMenu />
-        <section className='content'>
-          <Routes>
-            <Route path="/preset-list" element={<PresetRegister />} />
-            <Route path="/preset-register" element={<PresetRegister />} />
-          </Routes>
+        <section className='content-area'>
+          <div className='content'>
+            <Routes>
+              <Route path="/preset-list" element={<PresetRegister />} />
+              <Route path="/preset-register" element={<PresetRegister />} />
+            </Routes>
+          </div>
         </section>
       </main>
     </BrowserRouter>

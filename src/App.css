@@ -4,6 +4,7 @@
 	--main-color: #6580D9;
   --black: #303030;
   --gray: #9e9e9e;
+  --mild-gray: #eaeaea;
   --white: #ffffff;
 }
 
@@ -16,22 +17,69 @@ html, body, main, div, span, h1, h2, h3, p, ol, ul, li {
   padding: 0;
 }
 
+body {
+  background-color: var(--main-color);
+}
+
 main {
   display: flex;
   height: 100vh;
-  background-color: var(--main-color);
-  padding: 20px;
-  gap: 20px;
+  padding: 1.5rem;
+  gap: 1rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.content-area {
+  flex: 1;
+  background-color: var(--white);
+  border-radius: 1rem;
+  padding: 1rem 0;
 }
 
 .content {
   flex: 1;
-  background-color: var(--white);
-  border-radius: 20px;
-  padding: 1.5rem;
+  height: 100%;
+  padding: 0.5rem 1rem 0.5rem 1.5rem;
+  overflow-y: auto;
 }
 
 .page-title {
   color: var(--main-color);
   font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.input-container {
+  margin-bottom: 1rem;
+}
+
+label {
+  font-size: 1rem;
+  display: block;
+}
+
+input[type="text"] {
+  background-color: var(--mild-gray);
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  margin: 0.3rem 0;
+}
+
+.button-container {
+  display: block;
+  text-align: center;
+}
+
+.button-container button {
+  background-color: var(--main-color);
+  color: var(--white);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.2rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
 }
