@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import '../../App.css';
-import './Preset.css';
+import '../App.css';
 
 function Preset() {
     const [name, setName] = useState('');
@@ -42,7 +41,7 @@ function Preset() {
         <div className='input-container'>
           <label htmlFor='finish-time'>終了目標時刻</label>
           <input
-            type="text"
+            type="time"
             id='finish-time'
             value={finishtime}
             onChange={e => setFinishtime(e.target.value)}

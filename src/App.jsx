@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Preset from './components/Preset/Preset';
-import Task from './components/Task/Task';
+import Preset from './components/Preset';
+import Task from './components/Task';
 import SideMenu from './components/SideMenu/SideMenu'
 import PresetRegister from './pages/PresetRegister';
 import './App.css';
