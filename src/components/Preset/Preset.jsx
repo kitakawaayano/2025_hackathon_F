@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './Preset.css';
 
 function Preset() {
     const [name, setName] = useState('');

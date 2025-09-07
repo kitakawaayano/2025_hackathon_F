@@ -33,7 +33,7 @@ function Task() {
                     <input
                         type="text"
                         value={name}
-                        onChange={e => setName(e.target.value)}    
+                        onChange={e => setName(e.target.value)}
                     />
                 </label>
                 <label>
@@ -41,7 +41,7 @@ function Task() {
                     <input
                         type="text"
                         value={tasktime}
-                        onChange={e => setTasktime(e.target.value)}    
+                        onChange={e => setTasktime(e.target.value)}
                     />
                 </label>
                 <label>
