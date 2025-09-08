@@ -1,32 +1,18 @@
-import { useState } from 'react';
 import '../App.css';
 import './Task.css';
 
-function Task() {
-    const [name, setName] = useState('');
-    const [tasktime, setTasktime] = useState('');
-    const [importance, setImportance] = useState('');
-
-    const postTask = async (e) => {
-        e.preventDefault();
-        setName('');
-        setTasktime('');
-        setImportance('');
-
-        const response = await fetch('http://localhost:3000/tasks', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                task_name: name,
-                task_time: tasktime,
-                Importance: importance
-            }),
-        });
-        const data = await response.json()
-        console.log(data);
-    }
+function Task({
+  name,
+  setName,
+  tasktime,
+  setTasktime,
+  importance,
+  setImportance,
+}) {
+  const handleTaskInput = (e) => {
+    e.preventDefault();
+  };
+    
     return (
         <div>
             <form>
@@ -59,15 +45,13 @@ function Task() {
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
-                                <option value="4">4</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
-                {/* ↓後でなくなる */}
                 <div className='button-container'>
-                    <button type="submit" onClick={postTask}>保存</button>
+                    <button type="submit" onClick={handleTaskInput}>追加</button>
                 </div>
             </form>
         </div>
