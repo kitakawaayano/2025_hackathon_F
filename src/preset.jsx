@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useCookies } from 'react-cookie';
 
 function Preset() {
     const [name, setName] = useState('');
     const [finishtime, setFinishtime] = useState('');
+    const [presetname, setCookie] = useCookies(["name"])
 
     const postPreset = async (e) => {
         e.preventDefault();
@@ -10,6 +12,7 @@ function Preset() {
         setFinishtime('');
         console.log(name);
         console.log(finishtime);
+        setCookie("name", name)
 
         const response = await fetch('http://localhost:3000/presets', {
             method: 'POST',
@@ -44,6 +47,7 @@ function Preset() {
           />
         </label>
         <button type="submit" onClick={postPreset}>Save</button>
+        {presetname.name}
       </form>
     </div>
   );
