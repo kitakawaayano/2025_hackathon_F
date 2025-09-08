@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Preset from './Preset';
-import Task from './Task';
+import Task from './Task/Task';
 
 function PresetTaskContainer() {
   const [presetName, setPresetName] = useState('');
