@@ -1,0 +1,44 @@
+@charset "utf-8";
+
+.preset-list-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.preset-list-item {
+  background-color: var(--mild-gray);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.preset-name {
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+
+.preset-info-ul {
+  list-style: none;
+  color: var(--main-color);
+  padding: 0;
+  margin: 0.5rem 0 0 1rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+}
+
+.preset-info-item {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.preset-info-item .material-symbols-outlined {
+  font-size: 1.5rem;
+  margin-right: 0.3rem;
+}
+
+.preset-info-smallText {
+  font-size: 0.9rem;
+}
