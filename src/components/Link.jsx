@@ -1,5 +1,4 @@
 import React from 'react';
-import './SideMenu/SideMenu.css';
 
 const Link = (props) => {
   return (

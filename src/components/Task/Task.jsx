@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import '../App.css';
 import './Task.css';
 
 function Task() {

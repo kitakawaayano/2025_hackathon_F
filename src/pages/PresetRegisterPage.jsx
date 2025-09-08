@@ -1,8 +1,8 @@
 import React from 'react';
 import Preset from '../components/Preset';
-import Task from '../components/Task';
+import Task from '../components/Task/Task';
 
-function PresetRegister() {
+function PresetRegisterPage() {
   return (
     <>
       <h2 className='page-title'>プリセット登録画面</h2>
@@ -12,4 +12,4 @@ function PresetRegister() {
   );
 }
 
-export default PresetRegister;
+export default PresetRegisterPage;
