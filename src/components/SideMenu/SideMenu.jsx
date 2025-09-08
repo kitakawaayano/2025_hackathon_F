@@ -1,14 +1,19 @@
 import React from 'react';
-import Link from '../../components/Link';
+import { Link, useLocation } from 'react-router-dom';
 import './SideMenu.css';
 
 const SideMenu = () => {
+  const location = useLocation();
   return (
     <div className="side-menu">
       <h1 className="app-name">アプリ名</h1>
       <ul className="menu-list">
-        <li><Link to="/presets-list" text="プリセット一覧" /></li>
-        <li><Link to="/presets-register" text="プリセット登録" /></li>
+        <li className={location.pathname === '/preset-list' ? 'active' : ''}>
+          <Link to="/preset-list">プリセット一覧</Link>
+        </li>
+        <li className={location.pathname === '/preset-register' ? 'active' : ''}>
+          <Link to="/preset-register">プリセット登録</Link>
+        </li>
       </ul>
     </div>
   );

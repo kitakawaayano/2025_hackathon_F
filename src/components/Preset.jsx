@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '../App.css';
 
 function Preset() {
     const [name, setName] = useState('');
@@ -27,23 +28,28 @@ function Preset() {
   return (
     <div>
       <form>
-        <label>
-          Preset Name:
+        <div className='input-container'>
+          <label htmlFor='preset-name'>プリセット名</label>
           <input
             type="text"
+            id='preset-name'
             value={name}
             onChange={e => setName(e.target.value)}
+            placeholder='例 : 朝のルーティーン'
           />
-        </label>
-        <label>
-          Finish Time:
+        </div>
+        <div className='input-container'>
+          <label htmlFor='finish-time'>終了目標時刻</label>
           <input
             type="time"
+            id='finish-time'
             value={finishtime}
             onChange={e => setFinishtime(e.target.value)}
           />
-        </label>
-        <button type="submit" onClick={postPreset}>Save</button>
+        </div>
+        <div className='button-container'>
+          <button type="submit" onClick={postPreset}>登録</button>
+        </div>
       </form>
     </div>
   );

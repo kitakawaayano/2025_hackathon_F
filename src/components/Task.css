@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+.task-row {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.task-row div:nth-child(1) {
+  flex: 6;
+}
+
+.task-row div:nth-child(2),
+.task-row div:nth-child(3) {
+  flex: 1;
+}
