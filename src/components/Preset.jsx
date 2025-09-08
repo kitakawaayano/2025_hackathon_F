@@ -1,30 +1,23 @@
-import { useState } from 'react';
 import '../App.css';
+import postPreset from '../hooks/preset';
 
-function Preset() {
-    const [name, setName] = useState('');
-    const [finishtime, setFinishtime] = useState('');
 
-    const postPreset = async (e) => {
-        e.preventDefault();
-        setName('');
-        setFinishtime('');
-        console.log(name);
-        console.log(finishtime);
-
-        const response = await fetch('http://localhost:3000/presets', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                preset_name: name,
-                finish_time: finishtime
-            }),
-        });
-        const data = await response.json();
-        console.log(data);
-    }
+function Preset({
+    name,
+    setName,
+    finishtime,
+    setFinishtime,
+    taskname,
+    tasktime,
+    importance
+}) {
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+    setName('');
+    setFinishtime('');
+    await postPreset(name, finishtime, taskname, tasktime, importance);
+  };
+  
   return (
     <div>
       <form>
@@ -46,11 +39,13 @@ function Preset() {
             value={finishtime}
             onChange={e => setFinishtime(e.target.value)}
           />
+
         </div>
         <div className='button-container'>
-          <button type="submit" onClick={postPreset}>登録</button>
+          <button type="submit" onClick={handleSubmit}>登録</button>
         </div>
       </form>
+
     </div>
   );
 }
