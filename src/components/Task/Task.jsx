@@ -1,10 +1,10 @@
-import { useState } from 'react';
 import './Task.css';
 
-function Task() {
-    const [tasks, setTasks] = useState([
-        { name: '', tasktime: '', importance: '1' }
-    ]);
+function Task({
+    tasks,
+    setTasks
+}) {
+    // console.log(tasks);
 
     const handleTaskChange = (index, field, value) => {
         const updatedTasks = [...tasks];
@@ -14,7 +14,7 @@ function Task() {
 
     const handleAddTask = (e) => {
         e.preventDefault();
-        setTasks([...tasks, { name: '', tasktime: '', importance: '1' }]);
+        setTasks([...tasks, { name: '', tasktime: 1, importance: '1' }]);
     };
 
     const handleRemoveTask = (index) => {

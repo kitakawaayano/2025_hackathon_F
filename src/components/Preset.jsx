@@ -7,15 +7,14 @@ function Preset({
     setName,
     finishtime,
     setFinishtime,
-    taskname,
-    tasktime,
-    importance
+    tasks
 }) {
     const handleSubmit = async (e) => {
     e.preventDefault();
     setName('');
     setFinishtime('');
-    await postPreset(name, finishtime, taskname, tasktime, importance);
+    console.log(name, finishtime, tasks);
+    await postPreset(name, finishtime, tasks);
   };
   
   return (

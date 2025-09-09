@@ -5,10 +5,7 @@ import Task from './Task/Task';
 function PresetTaskContainer() {
   const [presetName, setPresetName] = useState('');
   const [finishTime, setFinishTime] = useState('');
-  const [taskName, setTaskName] = useState('');
-  const [taskTime, setTaskTime] = useState('');
-  const [importance, setImportance] = useState('');
-  const [presetId, setPresetId] = useState('');
+  const [tasks, setTasks] = useState([{ name: '', tasktime: '', importance: '1' }]);
   return (
     <div>
       <Preset
@@ -16,19 +13,11 @@ function PresetTaskContainer() {
         setName={setPresetName}
         finishtime={finishTime}
         setFinishtime={setFinishTime}
-        taskname={taskName}
-        tasktime={taskTime}
-        importance={importance}
+        tasks={tasks}
       />
       <Task
-        name={taskName}
-        setName={setTaskName}
-        tasktime={taskTime}
-        setTasktime={setTaskTime}
-        importance={importance}
-        setImportance={setImportance}
-        presetid={presetId}
-        setPresetId={setPresetId}
+        tasks={tasks}
+        setTasks={setTasks}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-const postTask = async (name, tasktime, importance, presetid) => {
+const postTask = async (tasks, presetid) => {
 
     const response = await fetch('http://localhost:3000/tasks', {
         method: 'POST',
@@ -6,13 +6,14 @@ const postTask = async (name, tasktime, importance, presetid) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            task_name: name,
-            task_time: tasktime,
-            Importance: importance,
-            presetid: presetid
+            task_name: tasks.name,
+            task_time: tasks.tasktime,
+            Importance: tasks.importance,
+            preset_id: presetid
         }),
     });
     const data = await response.json()
+
     console.log(data);
 }
 
