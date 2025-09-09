@@ -68,7 +68,7 @@ function PresetList() {
         let minute = 0;
         tasks.map(task =>{
             if (id == task.preset_id){
-                minute+=task.task_time;
+                minute+=parseInt(task.task_time);
 
             }
         })

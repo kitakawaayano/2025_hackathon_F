@@ -7,15 +7,14 @@ function Preset({
     setName,
     finishtime,
     setFinishtime,
-    taskname,
-    tasktime,
-    importance
+    tasks
 }) {
     const handleSubmit = async (e) => {
     e.preventDefault();
     setName('');
     setFinishtime('');
-    await postPreset(name, finishtime, taskname, tasktime, importance);
+    console.log(name, finishtime, tasks);
+    await postPreset(name, finishtime, tasks);
   };
   
   return (
@@ -23,7 +22,7 @@ function Preset({
       <form>
         <div className='input-container'>
           <label htmlFor='preset-name'>
-            <span class="material-symbols-outlined">match_case</span>
+            <span className="material-symbols-outlined">match_case</span>
             プリセット名
             </label>
           <input

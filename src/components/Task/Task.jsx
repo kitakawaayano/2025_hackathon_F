@@ -1,10 +1,10 @@
-import { useState } from 'react';
 import './Task.css';
 
-function Task() {
-    const [tasks, setTasks] = useState([
-        { name: '', tasktime: '', importance: '1' }
-    ]);
+function Task({
+    tasks,
+    setTasks
+}) {
+    // console.log(tasks);
 
     const handleTaskChange = (index, field, value) => {
         const updatedTasks = [...tasks];
@@ -14,7 +14,7 @@ function Task() {
 
     const handleAddTask = (e) => {
         e.preventDefault();
-        setTasks([...tasks, { name: '', tasktime: '', importance: '1' }]);
+        setTasks([...tasks, { name: '', tasktime: 1, importance: '1' }]);
     };
 
     const handleRemoveTask = (index) => {
@@ -30,7 +30,7 @@ function Task() {
                         <tr>
                             <th>
                                 <span>
-                                    <span class="material-symbols-outlined">checklist</span>
+                                    <span className="material-symbols-outlined">checklist</span>
                                     タスク名
                                 </span>
                             </th>
@@ -42,7 +42,7 @@ function Task() {
                             </th>
                             <th>
                                 <span>
-                                    <span class="material-symbols-outlined">star</span>
+                                    <span className="material-symbols-outlined">star</span>
                                     重要度
                                 </span>
                             </th>
