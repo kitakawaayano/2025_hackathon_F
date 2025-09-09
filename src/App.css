@@ -122,3 +122,13 @@ form select {
   background-color: var(--mild-red);
   color: var(--white);
 }
+
+.close-button:disabled {
+  color: var(--gray);
+  border: 0.1rem solid var(--gray);
+}
+
+.close-button:disabled:hover {
+  background-color: var(--white);
+  cursor: not-allowed;
+}
