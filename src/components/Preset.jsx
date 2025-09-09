@@ -42,7 +42,7 @@ function Preset({
 
         </div>
         <div className='button-container'>
-          <button type="submit" onClick={handleSubmit}>登録</button>
+          <button type="submit" className='main-button' onClick={handleSubmit}>登録</button>
         </div>
       </form>
 
