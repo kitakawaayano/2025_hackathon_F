@@ -10,6 +10,7 @@
   background-color: var(--mild-gray);
   border-radius: 1rem;
   padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .preset-name {
@@ -41,4 +42,5 @@
 
 .preset-info-smallText {
   font-size: 0.9rem;
+  margin-top: 0.2rem;
 }
