@@ -28,9 +28,24 @@ function Task() {
                 <table className='task-table'>
                     <thead>
                         <tr>
-                            <th>タスク名</th>
-                            <th>所要時間</th>
-                            <th>重要度</th>
+                            <th>
+                                <span>
+                                    <span class="material-symbols-outlined">checklist</span>
+                                    タスク名
+                                </span>
+                            </th>
+                            <th>
+                                <span>
+                                    <span className="material-symbols-outlined">timelapse</span>
+                                    所要時間
+                                </span>
+                            </th>
+                            <th>
+                                <span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    重要度
+                                </span>
+                            </th>
                             <th></th>
                         </tr>
                     </thead>

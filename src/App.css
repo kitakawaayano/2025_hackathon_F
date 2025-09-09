@@ -61,6 +61,13 @@ main {
 .input-container label {
   font-size: 1rem;
   display: block;
+  display: inline-flex;
+	align-items: center;
+}
+
+.input-container label .material-symbols-outlined {
+  margin-right: 0.2rem;
+  color: var(--gray);
 }
 
 form [type="text"],
@@ -73,7 +80,6 @@ form select {
   border: 1px solid var(--mild-gray);
   border-radius: 0.5rem;
   font-size: 1rem;
-  margin: 0.5rem 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   transition: all 0.2s ease;
 }
