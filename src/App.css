@@ -34,7 +34,7 @@ main {
 }
 
 .content-area {
-  flex: 1;
+  flex: 5;
   background-color: var(--white);
   border-radius: 1rem;
   padding: 1rem 0;
