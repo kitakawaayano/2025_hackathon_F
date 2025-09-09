@@ -30,7 +30,7 @@ function Task() {
                         <tr>
                             <th>
                                 <span>
-                                    <span class="material-symbols-outlined">checklist</span>
+                                    <span className="material-symbols-outlined">checklist</span>
                                     タスク名
                                 </span>
                             </th>
@@ -42,7 +42,7 @@ function Task() {
                             </th>
                             <th>
                                 <span>
-                                    <span class="material-symbols-outlined">star</span>
+                                    <span className="material-symbols-outlined">star</span>
                                     重要度
                                 </span>
                             </th>

@@ -13,6 +13,7 @@ function App() {
         <section className='content-area'>
           <div className='content'>
             <Routes>
+              <Route path="/" element={<PresetListPage />} />
               <Route path="/preset-list" element={<PresetListPage />} />
               <Route path="/preset-register" element={<PresetRegisterPage />} />
             </Routes>

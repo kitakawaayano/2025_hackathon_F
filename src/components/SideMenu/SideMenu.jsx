@@ -8,7 +8,7 @@ const SideMenu = () => {
     <div className="side-menu">
       <h1 className="app-name">アプリ名</h1>
       <ul className="menu-list">
-        <li className={location.pathname === '/preset-list' ? 'active' : ''}>
+        <li className={['/', '/preset-list'].includes(location.pathname) ? 'active' : ''}>
           <Link to="/preset-list">プリセット一覧</Link>
         </li>
         <li className={location.pathname === '/preset-register' ? 'active' : ''}>
