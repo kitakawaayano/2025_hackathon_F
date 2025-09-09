@@ -22,3 +22,9 @@
 .task-td-width0 {
   width: 0%;
 }
+
+.task-td-widthAuto + .task-td-width10,
+.task-td-width10 + .task-td-width10,
+.task-td-width10 + .task-td-width0 {
+  padding-left: 0.2rem;
+}
