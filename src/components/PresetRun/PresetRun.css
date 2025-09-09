@@ -19,7 +19,6 @@
 .presetRun-task-ul .task-name {
   width: 100%;
   background-color: var(--mild-gray);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .task-info-box {
@@ -28,7 +27,6 @@
   align-items: center;
   font-weight: bold;
   color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .importance-1 {
