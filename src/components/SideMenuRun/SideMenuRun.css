@@ -1,0 +1,24 @@
+@charset "utf-8";
+
+.side-menu h3 {
+  font-size: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainColor-text {
+  color: var(--main-color);
+}
+
+.mildRed-text {
+  color: var(--mild-red);
+  font-size: 2.5rem;
+}
+
+.gray-text {
+  color: var(--gray);
+  font-weight: normal;
+  font-size: 1.2rem;
+}
