@@ -7,6 +7,8 @@
   --mild-gray: #eaeaea;
   --white: #ffffff;
   --mild-red: #d96565;
+  --mild-blue: #6595d9;
+  --mild-yellow: #edcc3b;
 }
 
 *, *::before, *::after {
@@ -34,7 +36,7 @@ main {
 }
 
 .content-area {
-  flex: 1;
+  flex: 5;
   background-color: var(--white);
   border-radius: 1rem;
   padding: 1rem 0;

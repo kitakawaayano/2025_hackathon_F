@@ -1,0 +1,60 @@
+@charset "utf-8";
+
+.presetRun-task-ul {
+  list-style: none;
+  margin-bottom: 1rem;
+}
+
+.presetRun-task-ul li {
+  margin-bottom: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.presetRun-task-ul li span {
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.5rem;
+}
+
+.presetRun-task-ul .task-name {
+  width: 100%;
+  background-color: var(--mild-gray);
+}
+
+.task-info-box {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: white;
+}
+
+.importance-1 {
+  background-color: var(--mild-blue);
+}
+
+.importance-2 {
+  background-color: var(--mild-yellow);
+  color: var(--black);
+}
+
+.importance-3 {
+  background-color: var(--mild-red);
+}
+
+.completed .task-name {
+  background-color: var(--white);
+  color: var(--gray);
+  text-decoration: line-through;
+}
+
+.completed .task-info-box {
+  background-color: var(--mild-gray);
+  color: var(--white);
+  text-decoration: none;
+}
+
+.sub-button {
+  display: inline-block;
+  text-decoration: none;
+}

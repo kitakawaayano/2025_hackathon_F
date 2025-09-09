@@ -1,13 +1,19 @@
 import React from 'react';
-import Preset from '../components/Preset';
-import Task from '../components/Task/Task';
+import SideMenu from '../components/SideMenu/SideMenu'
 import PresetTaskContainer from '../components/PresetTaskContainer';
 
 function PresetRegisterPage() {
   return (
     <>
-      <h2 className='page-title'>プリセット登録画面</h2>
-      <PresetTaskContainer />
+      <main>
+        <SideMenu />
+        <section className='content-area'>
+          <div className='content'>
+            <h2 className='page-title'>プリセット登録画面</h2>
+            <PresetTaskContainer />
+          </div>
+        </section>
+      </main>
     </>
   );
 }
