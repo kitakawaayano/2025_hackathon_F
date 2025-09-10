@@ -24,14 +24,13 @@ const getTask = async (presetId) => {
     });
 
     const data = await response.json();
-    const filteredData = data.filter(task => task.preset_id == presetId);
+    const filteredData = data.filter(task => task.preset_id === presetId);
     console.log(filteredData);
     return filteredData;
 }
 
 function PresetRun() {
     const { presetId } = useParams();
-    const presetIdNumber = Number(presetId);
 
     const [preset, setPreset] = useState([]);
     const [tasks, setTasks] = useState([]);
@@ -45,10 +44,10 @@ function PresetRun() {
     }
 
     useEffect(() => {
-        getPreset(presetIdNumber).then(result => {
+        getPreset(presetId).then(result => {
           setPreset(result);
         });
-        getTask(presetIdNumber).then(filteredTask => {
+        getTask(presetId).then(filteredTask => {
           setTasks(filteredTask);
 
           const completedInit = {};
@@ -57,7 +56,7 @@ function PresetRun() {
           });
           setCompleted(completedInit);
         });
-    }, [presetIdNumber]);
+    }, [presetId]);
 
     return (
         <>
