@@ -35,10 +35,13 @@ function PresetRun() {
 
     const [preset, setPreset] = useState([]);
     const [tasks, setTasks] = useState([]);
-    const [completed, setCompleted] = useState(false);
+    const [completed, setCompleted] = useState([]);
 
-    const completedToggle = () => {
-      setCompleted(!completed)
+    const completedToggle = (taskId) => {
+      setCompleted(prev => ({
+        ...prev,
+        [taskId]: !prev[taskId]
+      }))
     }
 
     useEffect(() => {
@@ -47,6 +50,12 @@ function PresetRun() {
         });
         getTask(presetIdNumber).then(filteredTask => {
           setTasks(filteredTask);
+
+          const completedInit = {};
+          filteredTask.forEach(task => {
+            completedInit[task.id] = false;
+          });
+          setCompleted(completedInit);
         });
     }, [presetIdNumber]);
 
@@ -56,8 +65,8 @@ function PresetRun() {
           <ul className='presetRun-task-ul'>
             {tasks.map(task =>
               <li
-                onClick={completedToggle}
-                className={completed ? "completed" : ""}
+                onClick={() => completedToggle(task.id)}
+                className={completed[task.id] ? "completed" : ""}
                 key={task.id}
               >
                 <span className={`task-info-box importance-${task.Importance}`}>{task.task_time}</span>
