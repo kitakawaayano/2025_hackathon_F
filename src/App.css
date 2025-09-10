@@ -95,6 +95,14 @@ form select:focus {
   box-shadow: 0 0 0 3px rgba(101, 128, 217, 0.2);
 }
 
+.error-input {
+  outline: 2px solid var(--mild-red);
+}
+
+.error-message {
+  color: var(--mild-red);
+}
+
 .button-container {
   display: block;
   text-align: center;

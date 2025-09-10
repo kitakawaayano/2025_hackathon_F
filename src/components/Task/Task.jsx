@@ -30,7 +30,7 @@ function Task({
                         <tr>
                             <th>
                                 <span>
-                                    <span className="material-symbols-outlined">checklist</span>
+                                    <span className="material-symbols-outlined">check_box</span>
                                     タスク名
                                 </span>
                             </th>
