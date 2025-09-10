@@ -1,8 +1,9 @@
 import './PresetRun.css';
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 function PresetRun() {
+    const { id } = useParams();
     const [completed, setCompleted] = useState(false);
 
     const completedToggle = () => {
