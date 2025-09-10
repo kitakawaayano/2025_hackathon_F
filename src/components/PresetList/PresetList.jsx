@@ -1,5 +1,6 @@
 import './PresetList.css';
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const getPreset = async () => { 
     const response = await fetch('http://localhost:3000/presets', {
@@ -80,9 +81,13 @@ function PresetList() {
         <>
         <div className='preset-list-container'>
             {data.map(preset => 
-                <div className='preset-list-item' key={preset.id}>
-                    <h3 className='preset-name'>
-                        <li key={preset.id}>{preset.preset_name}</li>
+                <Link
+                    to={`/preset-run/${preset.id}`}
+                    key={preset.id}
+                    className='preset-list-item'
+                >
+                    <h3 className='preset-name' key={preset.id}>
+                        {preset.preset_name}
                     </h3>
                     <ul className='preset-info-ul'>
                         <li>
@@ -107,7 +112,7 @@ function PresetList() {
                             </span>
                         </li>
                     </ul>
-                </div>
+                </Link>
                 )}
             </div>
         </>
