@@ -12,7 +12,7 @@ function App() {
         <Route path="/" element={<PresetListPage />} />
         <Route path="/preset-list" element={<PresetListPage />} />
         <Route path="/preset-register" element={<PresetRegisterPage />} />
-        <Route path="/preset-run" element={<PresetRunPage />} />
+        <Route path="/preset-run/:presetId" element={<PresetRunPage />} />
       </Routes>
     </BrowserRouter>
   );

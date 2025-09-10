@@ -16,28 +16,28 @@
       "id": "1",
       "task_name": "掃除",
       "task_time": 30,
-      "Importance": 2,
+      "Importance": 1,
       "preset_id": "1"
     },
     {
       "id": "2",
       "task_name": "買い物",
       "task_time": 45,
-      "Importance": 3,
+      "Importance": 2,
       "preset_id": "1"
     },
     {
       "id": "3",
       "task_name": "勉強",
       "task_time": 60,
-      "Importance": 5,
+      "Importance": 3,
       "preset_id": "2"
     },
     {
       "id": "4",
       "task_name": "運動",
       "task_time": 40,
-      "Importance": 4,
+      "Importance": 2,
       "preset_id": "2"
     }
   ]

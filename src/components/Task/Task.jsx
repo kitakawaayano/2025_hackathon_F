@@ -14,7 +14,7 @@ function Task({
 
     const handleAddTask = (e) => {
         e.preventDefault();
-        setTasks([...tasks, { name: '', tasktime: 1, importance: '1' }]);
+        setTasks([...tasks, { name: '', tasktime: '', importance: '1' }]);
     };
 
     const handleRemoveTask = (index) => {

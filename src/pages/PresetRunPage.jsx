@@ -1,6 +1,6 @@
 import React from 'react';
 import SideMenuRun from '../components/SideMenuRun/SideMenuRun'
-import PresetRun from '../components/PresetRun/PresetRun-mock';
+import PresetRun from '../components/PresetRun/PresetRun';
 
 function PresetRunPage() {
   return (
