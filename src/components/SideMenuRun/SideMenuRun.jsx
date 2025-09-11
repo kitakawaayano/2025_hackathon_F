@@ -5,7 +5,7 @@ import './SideMenuRun.css';
 import { useState, useEffect } from 'react';
 
 
-const SideMenuRun = () => {
+function SideMenuRun({ taskCount, completedCount }) {
 
   const [hourstime, setHoursDiff] = useState(0);
   const [minutetime, setMinuteDiff] = useState(0);
@@ -127,14 +127,18 @@ const SideMenuRun = () => {
           <span className='finish-time mainColor-text'>{finishtime}</span>
           <span className='gray-text'>まで</span>
         </span>
-        <span className='remaining-time mildRed-text'>{DigestNum(hourstime)}:{DigestNum(minutetime)}:{DigestNum(secondstime)}</span>
+        <span className='remaining-time mildRed-text big-text'>{DigestNum(hourstime)}:{DigestNum(minutetime)}:{DigestNum(secondstime)}</span>
       </h3>
 
       <h3>
         <span className='gray-text'>タスク進捗</span>
         <span>
-          <span className='mildRed-text'>2</span>
-          <span className='gray-text'>/5</span>
+          <span
+            className={taskCount !== completedCount ? "mildRed-text big-text" : "gray-text big-text"}
+          >
+            {completedCount}
+          </span>
+          <span className='gray-text'>/{taskCount}</span>
         </span>
       </h3>
     </div>
