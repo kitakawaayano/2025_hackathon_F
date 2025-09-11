@@ -29,7 +29,7 @@ const getTask = async (presetId) => {
     return filteredData;
 }
 
-function PresetRun({setTaskCount}) {
+function PresetRun({ setTaskCount, setCompletedCount }) {
     const { presetId } = useParams();
 
     const [preset, setPreset] = useState([]);
@@ -37,11 +37,18 @@ function PresetRun({setTaskCount}) {
     const [completed, setCompleted] = useState([]);
 
     const completedToggle = (taskId) => {
-      setCompleted(prev => ({
-        ...prev,
-        [taskId]: !prev[taskId]
-      }))
-    }
+      setCompleted(prev => {
+        const updated = {
+          ...prev,
+          [taskId]: !prev[taskId]
+        };
+
+        const count = Object.values(updated).filter(Boolean).length;
+        setCompletedCount(count);
+
+        return updated;
+      });
+    };
 
     useEffect(() => {
         getPreset(presetId).then(result => {

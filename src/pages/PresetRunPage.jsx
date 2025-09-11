@@ -4,14 +4,21 @@ import PresetRun from '../components/PresetRun/PresetRun';
 
 function PresetRunPage() {
   const [taskCount, setTaskCount] = useState(0);
+  const [completedCount, setCompletedCount] = useState(0);
 
   return (
     <>
       <main>
-        <SideMenuRun taskCount={taskCount} />
+        <SideMenuRun
+          taskCount={taskCount}
+          completedCount={completedCount}
+        />
         <section className='content-area'>
           <div className='content'>
-            <PresetRun setTaskCount={setTaskCount} />
+            <PresetRun
+              setTaskCount={setTaskCount}
+              setCompletedCount={setCompletedCount}
+            />
           </div>
         </section>
       </main>
