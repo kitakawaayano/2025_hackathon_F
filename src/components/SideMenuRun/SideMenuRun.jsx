@@ -13,7 +13,7 @@ function SideMenuRun({ taskCount, completedCount }) {
   const [secondstime, setSecondsDiff] = useState(0);
   const [finishtime, setFinishTime] = useState(0);
   const [id, setId] = useState(0);
-  // const [timerflg, setflg] = useState(false);
+  const [timerflg, setflg] = useState(true);
 
   useEffect(() => {
     let urlStr = window.location.href;
@@ -37,17 +37,12 @@ function SideMenuRun({ taskCount, completedCount }) {
   }
   
   const TimeReturn = (id) => {
-  // useEffect(() => {
-    // let diffTime = {};
-    console.log(id)
     
     getTime().then(results => {
       
-      // console.log(results);
       results.map(result =>{
         console.log(result);
         if (result.id == id){
-          // console.log(result[id-1].finish_time);
           console.log(result.finish_time)
           setFinishTime(result.finish_time);
           return result.finish_time;
@@ -56,7 +51,6 @@ function SideMenuRun({ taskCount, completedCount }) {
     }).catch(error => {
       return error;
     })
-  // }, [id])
   };
 
   const getDiffTime = (finishTime) => {
@@ -103,49 +97,54 @@ function SideMenuRun({ taskCount, completedCount }) {
 
   let count = 0;
   useEffect(() => {
-    console.log("時間:"+hourstime);
-    console.log("分:"+minutetime);
-    console.log("秒:"+secondstime);
-    const timer = setInterval(() => {
-      console.log(secondstime)
-      if (secondstime == 0){
-        setSecondsDiff(59);
-        if (minutetime == 0){
-          setMinuteDiff(59);
-          if (hourstime == 0){
-            clearInterval(timer);
+    console.log(timerflg);
+    if ( timerflg ){
+      console.log("aaa")
+    }
+    if (secondstime + minutetime + hourstime > 0 && timerflg){
+      const timer = setInterval(() => {
+
+        console.log(secondstime)
+        if (secondstime == 0){
+          setSecondsDiff(59);
+          if (minutetime == 0){
+            setMinuteDiff(59);
+            if (hourstime == 0){
+              console.log("タイマー終了")
+              clearInterval(timer);
+            }else {
+              let hour = hourstime;
+              hour--;
+              setHoursDiff(hour);
+            }
           }else {
-            let hour = hourstime;
-            hour -= hour;
-            setHoursDiff(hour);
+            let minute = minutetime;
+            minute--;
+            setMinuteDiff(minute);
           }
-        }else {
-          let minute = minutetime;
-          minute -= minute;
-          setMinuteDiff(minute);
+        } else {
+          let sec = secondstime;
+          sec --;
+          setSecondsDiff(sec);
         }
-      } else {
-        let sec = secondstime;
-        sec -= sec;
-
-        // console.log(sec);
-        setSecondsDiff(sec);
-      }
-      // console.log(secondstime);
-      count++;
-
-      if (count >= 1) {
-        clearInterval(timer);
-
-      };
-    }, 1000);
+        count++;        
+        if (count >= 1) {
+          clearInterval(timer);
+        };
+      }, 1000);
+    }  
     
-  }, []);
+  }, [secondstime]);
 
   const DigestNum = (num) => {
     return ("0" + num).slice(-2);
   };
 
+  useEffect(() => {
+    if (completedCount == taskCount && taskCount > 0){
+      setflg(false);
+    }
+  }, [completedCount])
 
   const location = useLocation();
   return (
