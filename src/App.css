@@ -172,3 +172,7 @@ form select:focus {
   background-color: var(--white);
   cursor: not-allowed;
 }
+
+.no-textDecoration {
+  text-decoration: none;
+}
