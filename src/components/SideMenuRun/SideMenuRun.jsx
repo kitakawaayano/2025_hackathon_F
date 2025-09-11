@@ -5,7 +5,7 @@ import './SideMenuRun.css';
 import { useState, useEffect } from 'react';
 
 
-const SideMenuRun = () => {
+function SideMenuRun({ taskCount }) {
 
   const [hourstime, setHoursDiff] = useState(0);
   const [minutetime, setMinuteDiff] = useState(0);
@@ -134,7 +134,7 @@ const SideMenuRun = () => {
         <span className='gray-text'>タスク進捗</span>
         <span>
           <span className='mildRed-text'>2</span>
-          <span className='gray-text'>/5</span>
+          <span className='gray-text'>/{taskCount}</span>
         </span>
       </h3>
     </div>

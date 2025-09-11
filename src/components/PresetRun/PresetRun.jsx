@@ -29,7 +29,7 @@ const getTask = async (presetId) => {
     return filteredData;
 }
 
-function PresetRun() {
+function PresetRun({setTaskCount}) {
     const { presetId } = useParams();
 
     const [preset, setPreset] = useState([]);
@@ -55,6 +55,7 @@ function PresetRun() {
             completedInit[task.id] = false;
           });
           setCompleted(completedInit);
+          setTaskCount(filteredTask.length);
         });
     }, [presetId]);
 
