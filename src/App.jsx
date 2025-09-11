@@ -4,6 +4,7 @@ import PresetRegisterPage from './pages/PresetRegisterPage';
 import PresetListPage from './pages/PresetListPage';
 import PresetRunPage from './pages/PresetRunPage';
 import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
