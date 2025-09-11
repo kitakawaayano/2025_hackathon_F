@@ -156,6 +156,7 @@ form select:focus {
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  pointer-events: auto;
 }
 
 .close-button:hover {
@@ -171,4 +172,8 @@ form select:focus {
 .close-button:disabled:hover {
   background-color: var(--white);
   cursor: not-allowed;
+}
+
+.no-textDecoration {
+  text-decoration: none;
 }

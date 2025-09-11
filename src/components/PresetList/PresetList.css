@@ -14,6 +14,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   text-decoration: none;
   transition: all 0.2s ease;
+  position: relative;
 }
 
 .preset-list-item:hover {
@@ -24,6 +25,7 @@
 .preset-name {
   font-size: 1.2rem;
   font-weight: normal;
+  color: var(--black);
 }
 
 .preset-info-ul {
@@ -51,4 +53,15 @@
 .preset-info-smallText {
   font-size: 0.9rem;
   margin-top: 0.2rem;
+}
+
+.preset-list-deleteButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--mild-red);
+  border: none;
+  background-color: transparent;
+  padding: 0.1rem;
+  cursor: pointer;
 }

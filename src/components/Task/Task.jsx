@@ -101,6 +101,7 @@ function Task({
                                 className='close-button'
                                 onClick={() => remove(index)}
                                 disabled={fields.length === 1}
+                                title={fields.length === 1 ? 'タスクは1つ以上必要です' : ''}
                             >
                                 <span className="material-symbols-outlined">close</span>
                             </button>
