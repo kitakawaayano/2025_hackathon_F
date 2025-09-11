@@ -156,6 +156,7 @@ form select:focus {
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  pointer-events: auto;
 }
 
 .close-button:hover {
