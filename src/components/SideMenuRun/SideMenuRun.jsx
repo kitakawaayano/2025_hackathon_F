@@ -5,12 +5,24 @@ import './SideMenuRun.css';
 import { useState, useEffect } from 'react';
 
 
+
 function SideMenuRun({ taskCount, completedCount }) {
 
   const [hourstime, setHoursDiff] = useState(0);
   const [minutetime, setMinuteDiff] = useState(0);
   const [secondstime, setSecondsDiff] = useState(0);
   const [finishtime, setFinishTime] = useState(0);
+  const [id, setId] = useState(0);
+  const [timerflg, setflg] = useState(true);
+
+  useEffect(() => {
+    let urlStr = window.location.href;
+    let url = new URL(urlStr).pathname;
+    setId(url.split('/').pop());
+  }, []);
+
+
+  
 
   const getTime = async () => { 
     const response = await fetch('http://localhost:3000/presets', {
@@ -25,25 +37,21 @@ function SideMenuRun({ taskCount, completedCount }) {
   }
   
   const TimeReturn = (id) => {
-    let diffTime = {};
     
-    getTime().then(result => {
-  
-      // result[1]←ここに対応する今回のプリセットidを入れる
-      if (result[1].id == 2){
-        console.log(result[1].finish_time);
-        setFinishTime(result[1].finish_time);
-        diffTime = getDiffTime(finishtime);
-        // console.log(diffTime.hoursDiff);
-        setHoursDiff(diffTime.hoursDiff);
-        setMinuteDiff(diffTime.minutesDiff);
-        setSecondsDiff(diffTime.secondsDiff);
-        return diffTime;
-      }
+    getTime().then(results => {
+      
+      results.map(result =>{
+        console.log(result);
+        if (result.id == id){
+          console.log(result.finish_time)
+          setFinishTime(result.finish_time);
+          return result.finish_time;
+        }
+      });
     }).catch(error => {
       return error;
     })
-  }
+  };
 
   const getDiffTime = (finishTime) => {
     const finish = new Date();
@@ -68,45 +76,63 @@ function SideMenuRun({ taskCount, completedCount }) {
     return { hoursDiff, minutesDiff, secondsDiff };
   };
 
-  const id = 1;
-  const diffTime = TimeReturn(id);
-  console.log(secondstime);
+
+  useEffect(() => {
+    if (id){
+      const fin = TimeReturn(id);
+      console.log(fin);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    console.log(finishtime);
+    if (isNaN(finishtime)){
+      const diffTime = getDiffTime(finishtime);
+      console.log(diffTime.hoursDiff);
+      setHoursDiff(diffTime.hoursDiff);
+      setMinuteDiff(diffTime.minutesDiff);
+      setSecondsDiff(diffTime.secondsDiff);
+    }
+  }, [finishtime])
 
   let count = 0;
   useEffect(() => {
-    const timer = setInterval(() => {
-      console.log(secondstime);
-      if (secondstime == 0){
-        setSecondsDiff(59);
-        if (minutetime == 0){
-          setMinuteDiff(59);
-          if (hourstime == 0){
-            clearInterval(timer);
+    console.log(timerflg);
+    if ( timerflg ){
+      console.log("aaa")
+    }
+    if (secondstime + minutetime + hourstime > 0 && timerflg){
+      const timer = setInterval(() => {
+
+        console.log(secondstime)
+        if (secondstime == 0){
+          setSecondsDiff(59);
+          if (minutetime == 0){
+            setMinuteDiff(59);
+            if (hourstime == 0){
+              console.log("タイマー終了")
+              clearInterval(timer);
+            }else {
+              let hour = hourstime;
+              hour--;
+              setHoursDiff(hour);
+            }
           }else {
-            let hour = hourstime;
-            hour -= hour;
-            setHoursDiff(hour);
+            let minute = minutetime;
+            minute--;
+            setMinuteDiff(minute);
           }
-        }else {
-          let minute = minutetime;
-          minute -= minute;
-          setMinuteDiff(minute);
+        } else {
+          let sec = secondstime;
+          sec --;
+          setSecondsDiff(sec);
         }
-      } else {
-        let sec = secondstime;
-        sec -= sec;
-
-        console.log(sec);
-        setSecondsDiff(sec);
-      }
-      console.log(secondstime);
-      count++;
-
-      if (count >= 1) {
-        clearInterval(timer);
-
-      };
-    }, 1000);
+        count++;        
+        if (count >= 1) {
+          clearInterval(timer);
+        };
+      }, 1000);
+    }  
     
   }, [secondstime]);
 
@@ -114,6 +140,11 @@ function SideMenuRun({ taskCount, completedCount }) {
     return ("0" + num).slice(-2);
   };
 
+  useEffect(() => {
+    if (completedCount == taskCount && taskCount > 0){
+      setflg(false);
+    }
+  }, [completedCount])
 
   const location = useLocation();
   return (
