@@ -20,6 +20,7 @@ const postPreset = async (name, finishtime, tasks) => {
         postTask(task ,data.id);
     })
 
+    return data.id;
 }
 
 export default postPreset;
