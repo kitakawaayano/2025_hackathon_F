@@ -124,7 +124,9 @@ function PresetList() {
                             </li>
                         </ul>
                     </Link>
-                    <button onClick={() => deletePreset(preset.id)}>削除</button>
+                    <button onClick={() => deletePreset(preset.id)} className='preset-list-deleteButton' title='このプリセットを削除する'>
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
                 </div>
                 )}
             </div>
