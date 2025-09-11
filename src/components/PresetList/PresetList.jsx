@@ -1,6 +1,7 @@
 import './PresetList.css';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const getPreset = async () => { 
     const response = await fetch('http://localhost:3000/presets', {
@@ -77,19 +78,24 @@ function PresetList() {
             return;
         }
 
-        const relatedTasks = tasks.filter(task => task.preset_id === id);
-        for (const task of relatedTasks) {
-            await fetch(`http://localhost:3000/tasks/${task.id}`, {
+        try {
+            const relatedTasks = tasks.filter(task => task.preset_id === id);
+            for (const task of relatedTasks) {
+                await fetch(`http://localhost:3000/tasks/${task.id}`, {
+                    method: 'DELETE'
+                });
+            }
+
+            await fetch(`http://localhost:3000/presets/${id}`, {
                 method: 'DELETE'
             });
+            toast.success("プリセットを削除しました");
+
+            const newData = await getPreset();
+            setData(newData);
+        } catch (e) {
+            toast.error("プリセットの削除に失敗しました")
         }
-
-        await fetch(`http://localhost:3000/presets/${id}`, {
-            method: 'DELETE'
-        });
-
-        const newData = await getPreset();
-        setData(newData);
     };
 
     return (
@@ -125,11 +131,12 @@ function PresetList() {
                         </ul>
                     </Link>
                     <button onClick={() => deletePreset(preset.id)} className='preset-list-deleteButton' title='このプリセットを削除する'>
-                        <span class="material-symbols-outlined">delete</span>
+                        <span className="material-symbols-outlined">delete</span>
                     </button>
                 </div>
                 )}
             </div>
+            <ToastContainer />
         </>
     );
 }
