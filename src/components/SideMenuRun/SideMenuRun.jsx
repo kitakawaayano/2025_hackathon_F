@@ -5,12 +5,24 @@ import './SideMenuRun.css';
 import { useState, useEffect } from 'react';
 
 
+
 const SideMenuRun = () => {
 
   const [hourstime, setHoursDiff] = useState(0);
   const [minutetime, setMinuteDiff] = useState(0);
   const [secondstime, setSecondsDiff] = useState(0);
   const [finishtime, setFinishTime] = useState(0);
+  const [id, setId] = useState(0);
+  // const [timerflg, setflg] = useState(false);
+
+  useEffect(() => {
+    let urlStr = window.location.href;
+    let url = new URL(urlStr).pathname;
+    setId(url.split('/').pop());
+  }, []);
+
+
+  
 
   const getTime = async () => { 
     const response = await fetch('http://localhost:3000/presets', {
@@ -25,25 +37,27 @@ const SideMenuRun = () => {
   }
   
   const TimeReturn = (id) => {
-    let diffTime = {};
+  // useEffect(() => {
+    // let diffTime = {};
+    console.log(id)
     
-    getTime().then(result => {
-  
-      // result[1]←ここに対応する今回のプリセットidを入れる
-      if (result[1].id == 2){
-        console.log(result[1].finish_time);
-        setFinishTime(result[1].finish_time);
-        diffTime = getDiffTime(finishtime);
-        // console.log(diffTime.hoursDiff);
-        setHoursDiff(diffTime.hoursDiff);
-        setMinuteDiff(diffTime.minutesDiff);
-        setSecondsDiff(diffTime.secondsDiff);
-        return diffTime;
-      }
+    getTime().then(results => {
+      
+      // console.log(results);
+      results.map(result =>{
+        console.log(result);
+        if (result.id == id){
+          // console.log(result[id-1].finish_time);
+          console.log(result.finish_time)
+          setFinishTime(result.finish_time);
+          return result.finish_time;
+        }
+      });
     }).catch(error => {
       return error;
     })
-  }
+  // }, [id])
+  };
 
   const getDiffTime = (finishTime) => {
     const finish = new Date();
@@ -68,14 +82,32 @@ const SideMenuRun = () => {
     return { hoursDiff, minutesDiff, secondsDiff };
   };
 
-  const id = 1;
-  const diffTime = TimeReturn(id);
-  console.log(secondstime);
+
+  useEffect(() => {
+    if (id){
+      const fin = TimeReturn(id);
+      console.log(fin);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    console.log(finishtime);
+    if (isNaN(finishtime)){
+      const diffTime = getDiffTime(finishtime);
+      console.log(diffTime.hoursDiff);
+      setHoursDiff(diffTime.hoursDiff);
+      setMinuteDiff(diffTime.minutesDiff);
+      setSecondsDiff(diffTime.secondsDiff);
+    }
+  }, [finishtime])
 
   let count = 0;
   useEffect(() => {
+    console.log("時間:"+hourstime);
+    console.log("分:"+minutetime);
+    console.log("秒:"+secondstime);
     const timer = setInterval(() => {
-      console.log(secondstime);
+      console.log(secondstime)
       if (secondstime == 0){
         setSecondsDiff(59);
         if (minutetime == 0){
@@ -96,10 +128,10 @@ const SideMenuRun = () => {
         let sec = secondstime;
         sec -= sec;
 
-        console.log(sec);
+        // console.log(sec);
         setSecondsDiff(sec);
       }
-      console.log(secondstime);
+      // console.log(secondstime);
       count++;
 
       if (count >= 1) {
@@ -108,7 +140,7 @@ const SideMenuRun = () => {
       };
     }, 1000);
     
-  }, [secondstime]);
+  }, []);
 
   const DigestNum = (num) => {
     return ("0" + num).slice(-2);
