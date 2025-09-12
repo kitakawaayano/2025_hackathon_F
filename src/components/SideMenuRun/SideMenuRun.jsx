@@ -211,34 +211,39 @@ function SideMenuRun({ filteredTasks, completedCount }) {
         <Link to="/preset-list">アプリ名</Link>
       </h1>
 
-      <h3>
-        <span>
-          <span className='finish-time mainColor-text'>{finishtime}</span>
-          <span className='gray-text'>
-            {mode === 'countDown' ? 'まで' : 'を'}
+      <div className='side-menu-info-container'>
+        <h3>
+          <span>
+            <span className='finish-time mainColor-text'>{finishtime}</span>
+            <span className='gray-text'>
+              {mode === 'countDown' ? 'まで' : 'を'}
+            </span>
           </span>
-        </span>
-        <span className='remaining-time mildRed-text big-text'>
-          {DigestNum(hourstime)}:{DigestNum(minutetime)}:{DigestNum(secondstime)}
-        </span>
-        {mode === 'countUp' && <span><span className="mildRed-text">超過</span></span>}
-      </h3>
-
-      <h3>
-        <span className='gray-text'>タスク進捗</span>
-        <span>
-          <span
-            className={taskCount !== completedCount ? "mildRed-text big-text" : "gray-text big-text"}
-          >
-            {completedCount}
+          <span className='remaining-time mildRed-text big-text'>
+            {DigestNum(hourstime)}:{DigestNum(minutetime)}:{DigestNum(secondstime)}
           </span>
-          <span className='gray-text'>/{taskCount}</span>
-        </span>
-      </h3>
+          {mode === 'countUp' && <span><span className="mildRed-text">超過</span></span>}
+        </h3>
 
-      <button onClick={() => deletePreset(id)} className='preset-run-deleteButton'>
-        このプリセットを<br />削除する
-      </button>
+        <h3>
+          <span className='gray-text'>タスク進捗</span>
+          <span>
+            <span
+              className={taskCount !== completedCount ? "mildRed-text big-text" : "gray-text big-text"}
+            >
+              {completedCount}
+            </span>
+            <span className='gray-text'>/{taskCount}</span>
+          </span>
+        </h3>
+      </div>
+
+      <div className='preset-run-deleteButton-container'>
+        <button onClick={() => deletePreset(id)} className='preset-run-deleteButton'>
+          <span>このプリセットを</span>
+          <span>削除する</span>
+        </button>
+      </div>
     </div>
   );
 };
