@@ -95,46 +95,45 @@ function SideMenuRun({ filteredTasks, completedCount }) {
     }
   }, [finishtime])
 
-  let count = 0;
   useEffect(() => {
     console.log(timerflg);
-    if ( timerflg ){
-      console.log("aaa")
-    }
-    if (secondstime + minutetime + hourstime > 0 && timerflg){
-      const timer = setInterval(() => {
-
-        console.log(secondstime)
-        if (secondstime == 0){
-          setSecondsDiff(59);
-          if (minutetime == 0){
-            setMinuteDiff(59);
-            if (hourstime == 0){
-              console.log("タイマー終了")
-              clearInterval(timer);
-            }else {
-              let hour = hourstime;
-              hour--;
-              setHoursDiff(hour);
-            }
-          }else {
-            let minute = minutetime;
-            minute--;
-            setMinuteDiff(minute);
-          }
-        } else {
-          let sec = secondstime;
-          sec --;
-          setSecondsDiff(sec);
-        }
-        count++;        
-        if (count >= 1) {
-          clearInterval(timer);
-        };
-      }, 1000);
-    }  
     
-  }, [secondstime]);
+    // タイマーが停止している、または時間が0の場合は何もしない
+    if (!timerflg || (secondstime + minutetime + hourstime === 0)) {
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setSecondsDiff(prevSeconds => {
+        if (prevSeconds > 0) {
+          return prevSeconds - 1;
+        } else {
+          setMinuteDiff(prevMinutes => {
+            if (prevMinutes > 0) {
+              return prevMinutes - 1;
+            } else {
+              setHoursDiff(prevHours => {
+                if (prevHours > 0) {
+                  setMinuteDiff(59);
+                  return prevHours - 1;
+                } else {
+                  console.log("タイマー終了");
+                  setflg(false);
+                  return 0;
+                }
+              });
+              return 59;
+            }
+          });
+          return 59;
+        }
+      });
+    }, 1000);
+
+    // クリーンアップ関数でタイマーをクリア
+    return () => clearInterval(timer);
+    
+  }, [timerflg]); // timerflgが変更された時のみ再実行
 
   const DigestNum = (num) => {
     return ("0" + num).slice(-2);
