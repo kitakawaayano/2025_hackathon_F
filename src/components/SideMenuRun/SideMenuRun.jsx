@@ -13,7 +13,7 @@ function SideMenuRun({ filteredTasks, completedCount }) {
   const [finishtime, setFinishTime] = useState(0);
   const [id, setId] = useState(0);
   const [timerflg, setflg] = useState(true);
-  const taskCount = filteredTasks.length;
+  const taskCount = Array.isArray(filteredTasks) ? filteredTasks.length : 0;
 
   useEffect(() => {
     let urlStr = window.location.href;
@@ -85,10 +85,10 @@ function SideMenuRun({ filteredTasks, completedCount }) {
   }, [id]);
 
   useEffect(() => {
-    console.log(finishtime);
-    if (isNaN(finishtime)){
+    console.log("Finish time updated:", finishtime);
+    if (finishtime && typeof finishtime === 'string' && finishtime.includes(':')){
       const diffTime = getDiffTime(finishtime);
-      console.log(diffTime.hoursDiff);
+      console.log("Setting initial time:", diffTime);
       setHoursDiff(diffTime.hoursDiff);
       setMinuteDiff(diffTime.minutesDiff);
       setSecondsDiff(diffTime.secondsDiff);
@@ -96,12 +96,19 @@ function SideMenuRun({ filteredTasks, completedCount }) {
   }, [finishtime])
 
   useEffect(() => {
-    console.log(timerflg);
+    console.log("Timer useEffect triggered:", { timerflg, hourstime, minutetime, secondstime });
     
-    // タイマーが停止している、または時間が0の場合は何もしない
-    if (!timerflg || (secondstime + minutetime + hourstime === 0)) {
+    if (!timerflg) {
+      console.log("Timer stopped by flag");
       return;
     }
+
+    if (secondstime === 0 && minutetime === 0 && hourstime === 0) {
+      console.log("All time values are 0, not starting timer");
+      return;
+    }
+
+    console.log("Starting timer with:", { hourstime, minutetime, secondstime });
 
     const timer = setInterval(() => {
       setSecondsDiff(prevSeconds => {
@@ -131,9 +138,12 @@ function SideMenuRun({ filteredTasks, completedCount }) {
     }, 1000);
 
     // クリーンアップ関数でタイマーをクリア
-    return () => clearInterval(timer);
+    return () => {
+      console.log("Clearing timer");
+      clearInterval(timer);
+    };
     
-  }, [timerflg]); // timerflgが変更された時のみ再実行
+  }, [timerflg, hourstime, minutetime, secondstime]);
 
   const DigestNum = (num) => {
     return ("0" + num).slice(-2);
@@ -155,10 +165,12 @@ function SideMenuRun({ filteredTasks, completedCount }) {
         return;
     }
 
-    for (const task of filteredTasks) {
-        await fetch(`http://localhost:3000/tasks/${task.id}`, {
-            method: 'DELETE'
-        });
+    if (Array.isArray(filteredTasks)) {
+      for (const task of filteredTasks) {
+          await fetch(`http://localhost:3000/tasks/${task.id}`, {
+              method: 'DELETE'
+          });
+      }
     }
 
     await fetch(`http://localhost:3000/presets/${id}`, {
