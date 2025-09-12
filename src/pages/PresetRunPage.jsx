@@ -3,7 +3,7 @@ import SideMenuRun from '../components/SideMenuRun/SideMenuRun'
 import PresetRun from '../components/PresetRun/PresetRun';
 
 function PresetRunPage() {
-  const [filteredTasks, setFilteredTasks] = useState(0);
+  const [filteredTasks, setFilteredTasks] = useState([]);
   const [completedCount, setCompletedCount] = useState(0);
 
   return (
