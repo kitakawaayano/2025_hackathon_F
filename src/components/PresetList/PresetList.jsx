@@ -1,6 +1,6 @@
 import './PresetList.css';
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 const getPreset = async () => { 
@@ -97,6 +97,15 @@ function PresetList() {
             toast.error("プリセットの削除に失敗しました")
         }
     };
+
+    const location = useLocation();
+
+    useEffect(() => {
+    if (location.state?.deleted) {
+        toast.success('プリセットを削除しました');
+        window.history.replaceState({}, document.title);
+    }
+    }, [location]);
 
     return (
         <>

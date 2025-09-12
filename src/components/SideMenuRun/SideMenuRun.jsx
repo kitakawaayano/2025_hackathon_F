@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import '../SideMenu/SideMenu.css';
 import './SideMenuRun.css';
 import { useState, useEffect } from 'react';
@@ -148,13 +148,13 @@ function SideMenuRun({ filteredTasks, completedCount }) {
 
   const location = useLocation();
 
+  const navigate = useNavigate();
+
   const deletePreset = async (id) => {
     const ok = window.confirm('本当に削除しますか？');
     if (!ok) {
         return;
     }
-
-    alert("削除処理")
 
     for (const task of filteredTasks) {
         await fetch(`http://localhost:3000/tasks/${task.id}`, {
@@ -166,7 +166,9 @@ function SideMenuRun({ filteredTasks, completedCount }) {
         method: 'DELETE'
     });
 
-    alert("削除処理完了")
+    navigate('/preset-list', {
+      state: { deleted: true }
+    });
   };
 
   return (
