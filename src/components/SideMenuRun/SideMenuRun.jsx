@@ -111,30 +111,30 @@ function SideMenuRun({ filteredTasks, completedCount }) {
     console.log("Starting timer with:", { hourstime, minutetime, secondstime });
 
     const timer = setInterval(() => {
-      setSecondsDiff(prevSeconds => {
-        if (prevSeconds > 0) {
-          return prevSeconds - 1;
-        } else {
-          setMinuteDiff(prevMinutes => {
-            if (prevMinutes > 0) {
-              return prevMinutes - 1;
-            } else {
-              setHoursDiff(prevHours => {
-                if (prevHours > 0) {
-                  setMinuteDiff(59);
-                  return prevHours - 1;
-                } else {
-                  console.log("タイマー終了");
-                  setflg(false);
-                  return 0;
-                }
-              });
-              return 59;
-            }
-          });
-          return 59;
-        }
-      });
+      // 現在の時間を計算（すべて秒に変換）
+      const totalSeconds = hourstime * 3600 + minutetime * 60 + secondstime;
+      
+      if (totalSeconds <= 1) {
+        // タイマー終了
+        console.log("タイマー終了");
+        setHoursDiff(0);
+        setMinuteDiff(0);
+        setSecondsDiff(0);
+        setflg(false);
+        return;
+      }
+      
+      // 1秒減らす
+      const newTotalSeconds = totalSeconds - 1;
+      
+      // 時間、分、秒に変換
+      const newHours = Math.floor(newTotalSeconds / 3600);
+      const newMinutes = Math.floor((newTotalSeconds % 3600) / 60);
+      const newSeconds = newTotalSeconds % 60;
+      
+      setHoursDiff(newHours);
+      setMinuteDiff(newMinutes);
+      setSecondsDiff(newSeconds);
     }, 1000);
 
     // クリーンアップ関数でタイマーをクリア
