@@ -53,6 +53,10 @@
   transition: all 0.2s ease;
 }
 
+.menu-list li a span {
+  display: inline-block;
+}
+
 .menu-list li a:hover {
   background-color: var(--mild-gray);
 }
@@ -65,4 +69,29 @@
 
 .side-menu .active a:hover {
   background: linear-gradient(180deg, var(--main-color), #556ed1);
+}
+
+@media screen and (max-width: 480px) {
+  .side-menu {
+    padding: 1rem;
+  }
+
+  .app-name {
+    padding-bottom: 1rem;
+  }
+
+  .menu-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .menu-list li {
+    margin: 0;
+  }
+
+  .menu-list li a {
+    border-radius: 1rem;
+  }
 }

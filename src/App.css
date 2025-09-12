@@ -23,6 +23,7 @@ html, body, main, div, span, h1, h2, h3, p, ol, ul, li {
 body {
   background: linear-gradient(180deg, var(--main-color), #4d65cd);
   overflow-y: hidden;
+  min-height: 100vh;
 }
 
 main {
@@ -108,7 +109,6 @@ form select:focus {
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1rem;
 }
 
 .main-button {
@@ -157,6 +157,7 @@ form select:focus {
   cursor: pointer;
   transition: all 0.2s ease;
   pointer-events: auto;
+  display: inline-flex;
 }
 
 .close-button:hover {
@@ -176,4 +177,20 @@ form select:focus {
 
 .no-textDecoration {
   text-decoration: none;
+}
+
+@media screen and (max-width: 480px) {
+  main {
+    display: block;
+    height: auto;
+    min-width: auto;
+  }
+
+  body {
+    overflow-y: auto;
+  }
+
+  .content-area {
+    margin-top: 1rem;
+  }
 }

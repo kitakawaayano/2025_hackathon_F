@@ -11,10 +11,10 @@ const SideMenu = () => {
       </h1>
       <ul className="menu-list">
         <li className={['/', '/preset-list'].includes(location.pathname) ? 'active' : ''}>
-          <Link to="/preset-list">プリセット一覧</Link>
+          <Link to="/preset-list"><span>プリセット</span><span>一覧</span></Link>
         </li>
         <li className={location.pathname === '/preset-register' ? 'active' : ''}>
-          <Link to="/preset-register">プリセット登録</Link>
+          <Link to="/preset-register"><span>プリセット</span><span>登録</span></Link>
         </li>
       </ul>
     </div>

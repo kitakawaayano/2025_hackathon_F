@@ -71,3 +71,10 @@
 .preset-list-deleteButton:hover {
   color: var(--mild-red);
 }
+
+@media screen and (max-width: 480px) {
+  .preset-list-container {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -38,6 +38,10 @@ function Task({
                     {fields.map((field, index) => (
                     <tr key={field.id}>
                         <td className='task-td-widthAuto'>
+                            <span className='task-input-caption'>
+                                <span className="material-symbols-outlined">check_box</span>
+                                タスク名
+                            </span>
                             <input
                                 type="text"
                                 placeholder='タスク名を入力'
@@ -57,6 +61,10 @@ function Task({
                             />
                         </td>
                         <td className='task-td-width10'>
+                            <span className='task-input-caption'>
+                                <span className="material-symbols-outlined">timelapse</span>
+                                所要時間
+                            </span>
                             <input
                                 type="number"
                                 className={errors.tasks?.[index]?.tasktime ? 'error-input' : ''}
@@ -79,6 +87,10 @@ function Task({
                             />
                         </td>
                         <td className='task-td-width10'>
+                            <span className='task-input-caption'>
+                                <span className="material-symbols-outlined">star</span>
+                                重要度
+                            </span>
                             <select
                                 className={errors.tasks?.[index]?.importance ? 'error-input' : ''}
                                 {...register(`tasks.${index}.importance`, {
@@ -95,7 +107,7 @@ function Task({
                                 render={({ message }) => <p className='error-message'>{message}</p>}
                             />
                         </td>
-                        <td className='task-td-width0'>
+                        <td className='task-td-width0 close-button-td'>
                             <button
                                 type="button"
                                 className='close-button'
@@ -104,7 +116,13 @@ function Task({
                                 title={fields.length === 1 ? 'タスクは1つ以上必要です' : ''}
                             >
                                 <span className="material-symbols-outlined">close</span>
+                                <span className='task-input-caption'>
+                                    このタスクを削除する
+                                </span>
                             </button>
+                            <span className='task-input-caption error-message'>
+                                {fields.length === 1 ? 'タスクは1つ以上必要です' : ''}
+                            </span>
                         </td>
                     </tr>
                     ))}

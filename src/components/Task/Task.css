@@ -15,7 +15,8 @@
   display: inline-flex;
 }
 
-.task-table th .material-symbols-outlined {
+.task-table th .material-symbols-outlined,
+.task-input-caption .material-symbols-outlined {
   margin-right: 0.2rem;
   color: var(--gray);
 }
@@ -36,4 +37,72 @@
 .task-td-width10 + .task-td-width10,
 .task-td-width10 + .task-td-width0 {
   padding-left: 0.2rem;
+}
+
+.task-input-caption {
+  display: none;
+}
+
+@media screen and (max-width: 480px) {
+  .task-table {
+    display: block;
+    width: 100%;
+  }
+
+  .task-table thead {
+    display: none;
+  }
+
+  .task-table tbody,
+  .task-table tr,
+  .task-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .task-table tr {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 0.1rem solid var(--mild-gray);
+    background-color: var(--mild-gray);
+    border-radius: 0.5rem;
+  }
+
+  .task-td-widthAuto + .task-td-width10,
+  .task-td-width10 + .task-td-width10,
+  .task-td-width10 + .task-td-width0 {
+    padding-left: 0;
+  }
+
+  .task-input-caption {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .task-table td {
+    padding: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .task-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .task-table [type="text"],
+  .task-table [type="number"],
+  .task-table select {
+    background-color: var(--white);
+  }
+
+  .close-button {
+    color: var(--mild-red);
+    margin-top: 0.5rem;
+  }
+
+  .close-button-td {
+    text-align: center;
+  }
 }
