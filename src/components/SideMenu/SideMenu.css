@@ -1,6 +1,8 @@
 @charset "utf-8";
 
 .side-menu {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   background-color: var(--white);
   padding: 1.5rem;
@@ -8,6 +10,10 @@
   text-align: center;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   align-items: center;
+}
+
+.side-menu > * {
+  width: 100%;
 }
 
 .app-name {
@@ -29,12 +35,12 @@
 
 .menu-list {
   padding: 0;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .menu-list li {
   list-style: none;
-  margin: 1rem 0.5rem;
+  margin: 2rem 0.5rem;
 }
 
 .menu-list li a {
