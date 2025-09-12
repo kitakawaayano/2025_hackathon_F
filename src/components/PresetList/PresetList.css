@@ -59,9 +59,14 @@
   position: absolute;
   top: 1rem;
   right: 1rem;
-  color: var(--mild-red);
+  color: var(--gray);
   border: none;
   background-color: transparent;
   padding: 0.1rem;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.preset-list-deleteButton:hover {
+  color: var(--mild-red);
 }

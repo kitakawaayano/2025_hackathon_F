@@ -1,12 +1,11 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import '../SideMenu/SideMenu.css';
 import './SideMenuRun.css';
 import { useState, useEffect } from 'react';
 
 
-
-function SideMenuRun({ taskCount, completedCount }) {
+function SideMenuRun({ filteredTasks, completedCount }) {
 
   const [hourstime, setHoursDiff] = useState(0);
   const [minutetime, setMinuteDiff] = useState(0);
@@ -14,6 +13,7 @@ function SideMenuRun({ taskCount, completedCount }) {
   const [finishtime, setFinishTime] = useState(0);
   const [id, setId] = useState(0);
   const [timerflg, setflg] = useState(true);
+  const taskCount = filteredTasks.length;
 
   useEffect(() => {
     let urlStr = window.location.href;
@@ -147,6 +147,30 @@ function SideMenuRun({ taskCount, completedCount }) {
   }, [completedCount])
 
   const location = useLocation();
+
+  const navigate = useNavigate();
+
+  const deletePreset = async (id) => {
+    const ok = window.confirm('本当に削除しますか？');
+    if (!ok) {
+        return;
+    }
+
+    for (const task of filteredTasks) {
+        await fetch(`http://localhost:3000/tasks/${task.id}`, {
+            method: 'DELETE'
+        });
+    }
+
+    await fetch(`http://localhost:3000/presets/${id}`, {
+        method: 'DELETE'
+    });
+
+    navigate('/preset-list', {
+      state: { deleted: true }
+    });
+  };
+
   return (
     <div className="side-menu">
       <h1 className="app-name">
@@ -172,6 +196,10 @@ function SideMenuRun({ taskCount, completedCount }) {
           <span className='gray-text'>/{taskCount}</span>
         </span>
       </h3>
+
+      <button onClick={() => deletePreset(id)} className='preset-run-deleteButton'>
+        このプリセットを<br />削除する
+      </button>
     </div>
   );
 };
