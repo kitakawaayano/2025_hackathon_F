@@ -11,7 +11,7 @@ const getPreset = async (presetId) => {
     });
 
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
 }
 
@@ -25,7 +25,7 @@ const getTask = async (presetId) => {
 
     const data = await response.json();
     const filteredData = data.filter(task => task.preset_id === presetId);
-    console.log(filteredData);
+    // console.log(filteredData);
     return filteredData;
 }
 
@@ -76,7 +76,7 @@ function PresetRun({ setFilteredTasks, setCompletedCount }) {
                 className={completed[task.id] ? "completed" : ""}
                 key={task.id}
               >
-                <span className={`task-info-box importance-${task.Importance}`}>{task.task_time}</span>
+                <span className={`task-info-box importance-${task.Importance}`}>{task.task_time}<span className='presetRun-smallText'>分</span></span>
                 <span className='task-name'>{task.task_name}</span>
               </li>
             )}

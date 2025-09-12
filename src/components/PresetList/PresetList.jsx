@@ -68,7 +68,7 @@ function PresetList() {
 
             }
         })
-        console.log(minute)
+        // console.log(minute)
         return minute;
     }
 
