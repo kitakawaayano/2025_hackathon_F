@@ -16,7 +16,7 @@ const postPreset = async (name, finishtime, tasks) => {
     // console.log(data.id);
 
     tasks.map(task => {
-        console.log(task);
+        // console.log(task);
         postTask(task ,data.id);
     })
 
