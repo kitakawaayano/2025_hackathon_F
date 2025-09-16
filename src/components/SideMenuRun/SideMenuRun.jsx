@@ -37,9 +37,7 @@ function SideMenuRun({ filteredTasks, completedCount }) {
   const TimeReturn = (id) => {
     getTime().then(results => {
       results.map(result =>{
-        // console.log(result);
         if (result.id == id){
-          // console.log(result.finish_time)
           setFinishTime(result.finish_time);
           return result.finish_time;
         }
@@ -54,36 +52,21 @@ function SideMenuRun({ filteredTasks, completedCount }) {
     const finish = new Date();
     const [hours, minutes] = finishTime.split(':');
     
-    // 文字列を数値に変換して、今日の指定時刻に設定
     finish.setHours(parseInt(hours), parseInt(minutes), 0, 0);
 
     let mode = '';
     let diff = finish - now;
 
-    console.log('Current time:', now.toLocaleTimeString());
-    console.log('Target time:', finish.toLocaleTimeString());
-    console.log('Diff (ms):', diff);
-    console.log('Diff (minutes):', Math.floor(diff / 1000 / 60));
-
     if (diff > 0) {
-      // 目標終了時刻前 -> 残り時間をカウントダウン
       mode = 'countDown';
-    } else if (diff <= 0 && diff > -3600000) {
-      // 目標終了時刻を超過(1時間未満) -> オーバーした時間をカウントアップ
+    } else {
       mode = 'countUp';
       diff = Math.abs(diff);
-    } else {
-      // 目標終了時刻を超過(1時間以上) -> 翌日の時刻とみなして残り時間をカウントダウン
-      mode = 'countDown';
-      finish.setDate(finish.getDate() + 1);
-      diff = finish - now;
     }
 
     const hoursDiff = Math.floor(diff / 1000 / 60 / 60);
     const minutesDiff = Math.floor((diff / 1000 / 60) % 60);
     const secondsDiff = Math.floor((diff / 1000) % 60);
-
-    console.log('Final result:', { hoursDiff, minutesDiff, secondsDiff, mode });
 
     return { hoursDiff, minutesDiff, secondsDiff, mode };
   };
@@ -92,15 +75,12 @@ function SideMenuRun({ filteredTasks, completedCount }) {
   useEffect(() => {
     if (id){
       const fin = TimeReturn(id);
-      // console.log(fin);
     }
   }, [id]);
 
   useEffect(() => {
-    // console.log("Finish time updated:", finishtime);
     if (finishtime && typeof finishtime === 'string' && finishtime.includes(':')){
       const diffTime = getDiffTime(finishtime);
-      // console.log("Setting initial time:", diffTime);
       setHoursDiff(diffTime.hoursDiff);
       setMinuteDiff(diffTime.minutesDiff);
       setSecondsDiff(diffTime.secondsDiff);
@@ -109,50 +89,59 @@ function SideMenuRun({ filteredTasks, completedCount }) {
   }, [finishtime])
 
   useEffect(() => {
-    // console.log("Timer useEffect triggered:", { timerflg, hourstime, minutetime, secondstime });
-
     if (!timerflg) {
-      // console.log("Timer stopped by flag");
       return;
     }
 
-    // if (secondstime === 0 && minutetime === 0 && hourstime === 0) {
-    //   // console.log("All time values are 0, not starting timer");
-    //   return;
-    // }
-
-    // console.log("Starting timer with:", { hourstime, minutetime, secondstime });
-
     const timer = setInterval(() => {
-      // 現在の時間を計算（すべて秒に変換）
-      const totalSeconds = hourstime * 3600 + minutetime * 60 + secondstime;
-      
-      if (totalSeconds <= 1) {
-        // タイマー終了
-        console.log("タイマー終了");
-        setHoursDiff(0);
-        setMinuteDiff(0);
-        setSecondsDiff(0);
-        setflg(false);
-        return;
+      if (mode === 'countDown') {
+        // カウントダウンモード：現在の時間を計算（すべて秒に変換）
+        const totalSeconds = hourstime * 3600 + minutetime * 60 + secondstime;
+        
+        if (totalSeconds <= 1) {
+          setHoursDiff(0);
+          setMinuteDiff(0);
+          setSecondsDiff(0);
+          setflg(false);
+          return;
+        }
+        
+        // 1秒減らす
+        const newTotalSeconds = totalSeconds - 1;
+        
+        // 時間、分、秒に変換
+        const newHours = Math.floor(newTotalSeconds / 3600);
+        const newMinutes = Math.floor((newTotalSeconds % 3600) / 60);
+        const newSeconds = newTotalSeconds % 60;
+        
+        setHoursDiff(newHours);
+        setMinuteDiff(newMinutes);
+        setSecondsDiff(newSeconds);
+        
+      } else if (mode === 'countUp') {
+        // カウントアップモード：1秒追加
+        setSecondsDiff(prevSeconds => {
+          if (prevSeconds < 59) {
+            return prevSeconds + 1;
+          } else {
+            // 秒が59を超えたら分を増やして秒をリセット
+            setMinuteDiff(prevMinutes => {
+              if (prevMinutes < 59) {
+                return prevMinutes + 1;
+              } else {
+                // 分が59を超えたら時間を増やして分をリセット
+                setHoursDiff(prevHours => prevHours + 1);
+                return 0;
+              }
+            });
+            return 0;
+          }
+        });
       }
-      
-      // 1秒減らす
-      const newTotalSeconds = totalSeconds - 1;
-      
-      // 時間、分、秒に変換
-      const newHours = Math.floor(newTotalSeconds / 3600);
-      const newMinutes = Math.floor((newTotalSeconds % 3600) / 60);
-      const newSeconds = newTotalSeconds % 60;
-      
-      setHoursDiff(newHours);
-      setMinuteDiff(newMinutes);
-      setSecondsDiff(newSeconds);
     }, 1000);
 
     // クリーンアップ関数でタイマーをクリア
     return () => {
-      // console.log("Clearing timer");
       clearInterval(timer);
     };
 
