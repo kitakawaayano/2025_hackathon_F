@@ -1,12 +1,9 @@
 import { ErrorMessage } from '@hookform/error-message';
 
 function Preset({
-    name,
-    finishtime,
     register,
     errors
 }) {
-  // console.log(register);
   return (
     <div>
       <div className='input-container'>
@@ -18,7 +15,6 @@ function Preset({
           type="text"
           id='preset-name'
           placeholder='プリセット名を入力'
-          defaultValue={name}
           className={errors.name ? 'error-input' : ''}
           {...register("name", {
             required: "プリセット名は必須です",
@@ -42,7 +38,6 @@ function Preset({
         <input
           type="time"
           id='finish-time'
-          defaultValue={finishtime}
           className={errors.finishtime ? 'error-input' : ''}
           {...register("finishtime", {
             required: "終了目標時刻を選択して下さい"

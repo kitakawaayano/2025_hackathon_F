@@ -7,27 +7,24 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import putPreset from '../../hooks/presetPut';
 
-function PresetRun() {
+function PresetEdit() {
     const navigate = useNavigate();
     const [id, setId] = useState(0);
-    const [name, setName] = useState([]);
-    const [finishtime, setfinishtime] = useState([]);
-    const [importance, setImportance] = useState([1]);
 
     const {
         register,
         control,
         handleSubmit,
         formState: { errors },
-        tasks,
+        reset,
     } = useForm({
-        defaultState: {
+        defaultValues: {
             name: '',
-            finish: '',
-            tasks: [{ id: id, name: name, tasktime: finishtime, importance: importance }]
+            finishtime: '',
+            tasks: []
         }
     });
-    
+
     const { fields, append, remove } = useFieldArray({
         control,
         name: 'tasks'
@@ -40,53 +37,44 @@ function PresetRun() {
         let url = new URL(urlStr).pathname;
         setId(url.split('/').pop());
         if (id > 0) {
-            getPreset(id);
+            setId(id);
         }
-    }, [id]);
-
-    const getPreset = async (id) => {
-        const response = await fetch(`http://localhost:3000/presets/${id}`, {
-            method: 'GET',
-            header: {
-                'Content-Type': 'application/json',
-            }
-        });
-
-        const data = await response.json();
-        setName(data.preset_name);
-        setfinishtime(data.finish_time);
-        return data;
-    }
-
-    const getTask = async (presetId) => {
-        const response = await fetch(`http://localhost:3000/tasks?preset_id=${presetId}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-
-        const data = await response.json();
-        // console.log(data);
-        return data;
-    }
+    }, []);
 
     useEffect(() => {
         if (id > 0) {
-            getTask(id).then(tasks => {
-                tasks.map(task => {
-                    append({ id: task.id, name: task.task_name, tasktime: task.task_time, importance: task.Importance });
+            const fetchData = async () => {
+                const presetResponse = await fetch(`http://localhost:3000/presets/${id}`);
+                const presetData = await presetResponse.json();
+
+                const tasksResponse = await fetch(`http://localhost:3000/tasks?preset_id=${id}`);
+                const tasksData = await tasksResponse.json();
+
+                reset({
+                    name: presetData.preset_name,
+                    finishtime: presetData.finish_time,
+                    tasks: tasksData.map(task => ({
+                        id: task.id,
+                        name: task.task_name,
+                        tasktime: Number(task.task_time),
+                        importance: Number(task.Importance)
+                    }))
                 });
-            });
+            };
+
+            fetchData();
         }
-    }, [id]);
+    }, [id, reset]);
 
     const onSubmit = async (data) => {
-        
+        const tasks = data.tasks.map(task => ({
+            ...task,
+            tasktime: Number(task.tasktime),
+            importance: Number(task.importance)
+        }));
         try {
-            const response = await putPreset(id, data.name, data.finishtime, data.tasks);
+            const response = await putPreset(id, data.name, data.finishtime, tasks);
             console.log(response);
-            
             toast.success(
                 <div>
                     プリセットを更新しました<br />
@@ -97,7 +85,6 @@ function PresetRun() {
                     style: { cursor: 'pointer' }
                 }
             );
-
         } catch (error) {
             console.error(error);
         }
@@ -107,13 +94,10 @@ function PresetRun() {
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Preset
-                    name={name}
-                    finishtime={finishtime}
                     register={register}
                     errors={errors}
                 />
                 <Task
-                    tasks={tasks}
                     control={control}
                     register={register}
                     errors={errors}
@@ -141,9 +125,5 @@ function PresetRun() {
     );
 }
 
+export default PresetEdit;
 
-export default PresetRun;
-
-// プリセット名と終了目標時刻がデフォルトの値から変化してないとき、エラーが出ないようにする。
-// 更新した時に出る謎のエラー（Failed to load resource: the server responded with a status of 404 (Not Found)）を解決
-// 所要時間等が文字列で登録されるのを解決する
