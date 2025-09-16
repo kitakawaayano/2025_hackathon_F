@@ -53,18 +53,22 @@ function SideMenuRun({ filteredTasks, completedCount }) {
     const now = new Date();
     const finish = new Date();
     const [hours, minutes] = finishTime.split(':');
-    finish.setHours(hours);
-    finish.setMinutes(minutes);
-    finish.setSeconds(0);
+    
+    // 文字列を数値に変換して、今日の指定時刻に設定
+    finish.setHours(parseInt(hours), parseInt(minutes), 0, 0);
 
     let mode = '';
     let diff = finish - now;
 
+    console.log('Current time:', now.toLocaleTimeString());
+    console.log('Target time:', finish.toLocaleTimeString());
+    console.log('Diff (ms):', diff);
+    console.log('Diff (minutes):', Math.floor(diff / 1000 / 60));
+
     if (diff > 0) {
       // 目標終了時刻前 -> 残り時間をカウントダウン
       mode = 'countDown';
-    }
-    if (diff <= 0 && diff > -3600000) {
+    } else if (diff <= 0 && diff > -3600000) {
       // 目標終了時刻を超過(1時間未満) -> オーバーした時間をカウントアップ
       mode = 'countUp';
       diff = Math.abs(diff);
@@ -78,6 +82,8 @@ function SideMenuRun({ filteredTasks, completedCount }) {
     const hoursDiff = Math.floor(diff / 1000 / 60 / 60);
     const minutesDiff = Math.floor((diff / 1000 / 60) % 60);
     const secondsDiff = Math.floor((diff / 1000) % 60);
+
+    console.log('Final result:', { hoursDiff, minutesDiff, secondsDiff, mode });
 
     return { hoursDiff, minutesDiff, secondsDiff, mode };
   };
