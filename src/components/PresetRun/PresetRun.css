@@ -26,7 +26,6 @@
 .task-info-box {
   display: inline-flex;
   justify-content: center;
-  align-items: center;
   font-weight: bold;
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -37,7 +36,7 @@
 .presetRun-smallText {
   padding: 0;
   font-size: 0.7rem;
-  margin-top: 0.2rem;
+  margin-top: 0.3rem;
 }
 
 .importance-1 {
