@@ -6,6 +6,7 @@ import Task from './EditTask';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import putPreset from '../../hooks/presetPut';
+import './PresetEdit.css';
 
 function PresetEdit() {
     const navigate = useNavigate();
@@ -116,9 +117,6 @@ function PresetEdit() {
                     <button type="submit" className='main-button'>プリセットを更新</button>
                 </div>
 
-                <div className='button-container'>
-                    <Link to="/preset-list" className='sub-button'>一覧に戻る</Link>
-                </div>
             </form>
             <ToastContainer />
         </>
