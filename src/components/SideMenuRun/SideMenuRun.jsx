@@ -185,45 +185,50 @@ function SideMenuRun({ filteredTasks, completedCount }) {
   };
 
   return (
-    <div className="side-menu">
-      <h1 className="app-name">
-        <Link to="/preset-list">アプリ名</Link>
-      </h1>
+    <div className='sidemenu-area'>
+      <div className="sidemenu">
+        <h1 className="app-name">
+          <Link to="/preset-list">アプリ名</Link>
+        </h1>
 
-      <div className='side-menu-info-container'>
-        <h3>
-          <span>
-            <span className='finish-time mainColor-text'>{finishtime}</span>
-            <span className='gray-text'>
-              {mode === 'countDown' ? 'まで' : 'を'}
-            </span>
-          </span>
-          <span className='remaining-time mildRed-text big-text'>
-            {DigestNum(hourstime)}:{DigestNum(minutetime)}:{DigestNum(secondstime)}
-          </span>
-          {mode === 'countUp' && <span><span className="mildRed-text">超過</span></span>}
-        </h3>
-
-        <h3>
-          <span className='gray-text'>タスク進捗</span>
-          {taskCount !== completedCount ?
+        <div className='sidemenu-info-container'>
+          <h3>
             <span>
-              <span className="mildRed-text big-text">{completedCount}</span>
-              <span className='gray-text'>/{taskCount}</span>
+              <span className='finish-time mainColor-text'>{finishtime}</span>
+              <span className='gray-text'>
+                {mode === 'countDown' ? 'まで' : 'を'}
+              </span>
             </span>
-          :
-            <span className='gray-text big-text'>全て完了</span>
-          }
-        </h3>
-      </div>
+            <span className='remaining-time mildRed-text big-text'>
+              {DigestNum(hourstime)}:{DigestNum(minutetime)}:{DigestNum(secondstime)}
+            </span>
+            {mode === 'countUp' && <span><span className="mildRed-text">超過</span></span>}
+          </h3>
 
-      <Link to={`/preset-edit/${id}`} className='main-button edit-button'>編集</Link>
+          <h3>
+            <span className='gray-text'>タスク進捗</span>
+            {taskCount !== completedCount ?
+              <span>
+                <span className="mildRed-text big-text">{completedCount}</span>
+                <span className='gray-text'>/{taskCount}</span>
+              </span>
+            :
+              <span className='gray-text big-text'>全て完了</span>
+            }
+          </h3>
+        </div>
 
-      <div className='preset-run-deleteButton-container'>
-        <button onClick={() => deletePreset(id)} className='preset-run-deleteButton'>
-          <span>このプリセットを</span>
-          <span>削除する</span>
-        </button>
+
+        <div className='preset-run-button-container'>
+          <Link to={`/preset-edit/${id}`} className='preset-run-editButton'>
+            <span>このプリセットを</span>
+            <span>編集する</span>
+          </Link>
+          <button onClick={() => deletePreset(id)} className='preset-run-deleteButton'>
+            <span>このプリセットを</span>
+            <span>削除する</span>
+          </button>
+        </div>
       </div>
     </div>
   );

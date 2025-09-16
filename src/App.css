@@ -32,7 +32,6 @@ main {
   padding: 1.5rem;
   gap: 1rem;
   max-width: 1280px;
-  min-width: 1000px;
   margin: 0 auto;
 }
 
@@ -109,6 +108,7 @@ form select:focus {
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .main-button {
@@ -138,6 +138,8 @@ form select:focus {
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   transition: all 0.2s ease;
+  display: inline-block;
+  text-decoration: none;
 }
 
 .sub-button:hover {
@@ -179,7 +181,7 @@ form select:focus {
   text-decoration: none;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 1000px) {
   main {
     display: block;
     height: auto;

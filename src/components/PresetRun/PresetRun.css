@@ -63,12 +63,3 @@
   color: var(--white);
   text-decoration: none;
 }
-
-.sub-button {
-  display: inline-block;
-  text-decoration: none;
-}
-
-.main-button{
-  text-decoration: none;
-}

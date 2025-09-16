@@ -73,6 +73,8 @@ function PresetTaskContainer() {
           >
               タスクを追加
           </button>
+        </div>
+        <div className='button-container'>
           <button type="submit" className='main-button'>プリセットを登録</button>
         </div>
       </form>
