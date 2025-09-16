@@ -2,6 +2,7 @@ import './PresetList.css';
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import SortButton from '../SortButton/SortButton';
 
 const getPreset = async () => { 
     const response = await fetch('http://localhost:3000/presets', {
@@ -35,7 +36,10 @@ function PresetList() {
     const [data, setData] = useState([]);
     const [tasks, setTasks] = useState([]);
     const [searchKeyword, setSearchKeyword] = useState('');
-
+    const [sortConfig, setSortConfig] = useState({
+        key: '',
+        order: 'asc'
+    });
 
     useEffect(() => {
         getPreset().then(result => {
@@ -112,9 +116,43 @@ function PresetList() {
         setSearchKeyword(event.target.value);
     };
 
+    const handleSort = (key) => {
+        // console.log("key : " + key)
+        setSortConfig(prev => {
+            if (prev.key === key) {
+                return {
+                    key,
+                    order: prev.order === 'asc' ? 'desc' : 'asc'
+                };
+            } else {
+                return {
+                    key,
+                    order: 'asc'
+                };
+            }
+        });
+    };
+
     const filteredData = data.filter(preset =>
         preset.preset_name.includes(searchKeyword)
     );
+
+    const sortedData = [...filteredData];
+
+    if (sortConfig.key) {
+        sortedData.sort((a, b) => {
+            const valA = a[sortConfig.key];
+            const valB = b[sortConfig.key];
+
+        if(valA < valB) {
+            return sortConfig.order === 'asc' ? -1 : 1;
+        }
+        if(valA > valB) {
+            return sortConfig.order === 'asc' ? 1 : -1;
+        }
+        return 0;
+        });
+    }
 
     return (
         <>
@@ -128,8 +166,30 @@ function PresetList() {
                 className="preset-search-input"
             />
         </div>
+        <div className='preset-sortButton-container'>
+            <SortButton
+                sort='preset_name'
+                handleSort={handleSort}
+                className={sortConfig.key === 'preset_name' ? 'active-sortButton' : ''}>
+
+                名前順 {sortConfig.key === 'preset_name' && (sortConfig.order === 'asc' ?
+                <span className="material-symbols-outlined">keyboard_arrow_up</span> :
+                <span className="material-symbols-outlined">keyboard_arrow_down</span>)}
+            </SortButton>
+
+            <SortButton
+                sort='finish_time'
+                handleSort={handleSort}
+                className={sortConfig.key === 'finish_time' ? 'active-sortButton' : ''}>
+
+
+                終了目標時刻順 {sortConfig.key === 'finish_time' && (sortConfig.order === 'asc' ?
+                <span className="material-symbols-outlined">keyboard_arrow_up</span> :
+                <span className="material-symbols-outlined">keyboard_arrow_down</span>)}
+            </SortButton>
+        </div>
         <div className='preset-list-container'>
-            {filteredData.map(preset =>
+            {sortedData.map(preset =>
                 <div key={preset.id} className='preset-list-item'>
                     <Link to={`/preset-run/${preset.id}`} className='no-textDecoration'>
                         <h3 className='preset-name'>
