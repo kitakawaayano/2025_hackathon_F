@@ -1,5 +1,27 @@
 @charset "utf-8";
 
+.preset-search-container {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--white);
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.preset-search-input {
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.preset-search-container .material-symbols-outlined {
+    color: var(--gray);
+}
+
 .preset-list-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
