@@ -34,6 +34,7 @@ const getTask = async () => {
 function PresetList() {
     const [data, setData] = useState([]);
     const [tasks, setTasks] = useState([]);
+    const [searchKeyword, setSearchKeyword] = useState('');
 
 
     useEffect(() => {
@@ -107,10 +108,28 @@ function PresetList() {
     }
     }, [location]);
 
+    const handleSearchChange = (event) => {
+        setSearchKeyword(event.target.value);
+    };
+
+    const filteredData = data.filter(preset =>
+        preset.preset_name.includes(searchKeyword)
+    );
+
     return (
         <>
+        <div className="preset-search-container">
+            <span className="material-symbols-outlined">search</span>
+            <input
+                type="text"
+                placeholder="プリセットを検索"
+                value={searchKeyword}
+                onChange={handleSearchChange}
+                className="preset-search-input"
+            />
+        </div>
         <div className='preset-list-container'>
-            {data.map(preset =>
+            {filteredData.map(preset =>
                 <div key={preset.id} className='preset-list-item'>
                     <Link to={`/preset-run/${preset.id}`} className='no-textDecoration'>
                         <h3 className='preset-name'>
