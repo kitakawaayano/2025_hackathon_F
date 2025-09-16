@@ -94,7 +94,7 @@
   color: var(--mild-red);
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 1000px) {
   .preset-list-container {
     display: flex;
     flex-direction: column;

@@ -6,7 +6,6 @@ import Task from './EditTask';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import putPreset from '../../hooks/presetPut';
-import './PresetEdit.css';
 
 function PresetEdit() {
     const navigate = useNavigate();
@@ -37,13 +36,13 @@ function PresetEdit() {
         let urlStr = window.location.href;
         let url = new URL(urlStr).pathname;
         setId(url.split('/').pop());
-        if (id > 0) {
+        if (id) {
             setId(id);
         }
     }, []);
 
     useEffect(() => {
-        if (id > 0) {
+        if (id) {
             const fetchData = async () => {
                 const presetResponse = await fetch(`http://localhost:3000/presets/${id}`);
                 const presetData = await presetResponse.json();
@@ -114,6 +113,10 @@ function PresetEdit() {
                     >
                         タスクを追加
                     </button>
+                </div>
+
+                <div className='button-container'>
+                    <Link to={`/preset-run/${id}`} className='sub-button'>実行画面に戻る</Link>
                     <button type="submit" className='main-button'>プリセットを更新</button>
                 </div>
 
