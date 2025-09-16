@@ -227,14 +227,14 @@ function SideMenuRun({ filteredTasks, completedCount }) {
 
         <h3>
           <span className='gray-text'>タスク進捗</span>
-          <span>
-            <span
-              className={taskCount !== completedCount ? "mildRed-text big-text" : "gray-text big-text"}
-            >
-              {completedCount}
+          {taskCount !== completedCount ?
+            <span>
+              <span className="mildRed-text big-text">{completedCount}</span>
+              <span className='gray-text'>/{taskCount}</span>
             </span>
-            <span className='gray-text'>/{taskCount}</span>
-          </span>
+          :
+            <span className='gray-text big-text'>全て完了</span>
+          }
         </h3>
       </div>
 
