@@ -40,13 +40,17 @@
   font-weight: bold;
 }
 
-.preset-run-deleteButton-container {
+.preset-run-button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   margin-top: auto;
   margin-bottom: 1rem;
   border-top: 0.1rem solid var(--mild-gray);
   padding-top: 1rem;
 }
 
+.preset-run-editButton,
 .preset-run-deleteButton {
   padding: 0.2rem 0.5rem;
   cursor: pointer;
@@ -56,13 +60,16 @@
   background-color: transparent;
   color: var(--gray);
   width: auto;
+  border-radius: 100vmax;
 }
 
+.preset-run-editButton:hover,
 .preset-run-deleteButton:hover {
-  color: var(--mild-red);
-  text-decoration: underline;
+  background-color: var(--mild-gray);
+  color: var(--black);
 }
 
+.preset-run-editButton span,
 .preset-run-deleteButton span {
   display: inline-block;
 }
@@ -94,9 +101,4 @@
   .preset-run-deleteButton {
     margin-bottom: 0;
   }
-}
-
-.edit-button{
-  margin-top: 450px;
-  height: 50px;
 }

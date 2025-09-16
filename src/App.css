@@ -109,6 +109,7 @@ form select:focus {
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .main-button {
@@ -138,6 +139,8 @@ form select:focus {
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   transition: all 0.2s ease;
+  display: inline-block;
+  text-decoration: none;
 }
 
 .sub-button:hover {
