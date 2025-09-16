@@ -217,6 +217,8 @@ function SideMenuRun({ filteredTasks, completedCount }) {
         </h3>
       </div>
 
+      <Link to={`/preset-edit/${id}`} className='main-button edit-button'>編集</Link>
+
       <div className='preset-run-deleteButton-container'>
         <button onClick={() => deletePreset(id)} className='preset-run-deleteButton'>
           <span>このプリセットを</span>
