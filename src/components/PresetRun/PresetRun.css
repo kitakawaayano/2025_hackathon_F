@@ -11,7 +11,8 @@
   gap: 0.5rem;
 }
 
-.presetRun-task-ul li span {
+.task-name,
+.task-info-box {
   padding: 0.6rem 0.8rem;
   border-radius: 0.5rem;
 }
@@ -29,6 +30,14 @@
   font-weight: bold;
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  min-width: 4rem;
+  padding: 0.6rem 0;
+}
+
+.presetRun-smallText {
+  padding: 0;
+  font-size: 0.7rem;
+  margin-top: 0.2rem;
 }
 
 .importance-1 {
