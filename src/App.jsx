@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PresetRegisterPage from './pages/PresetRegisterPage';
 import PresetListPage from './pages/PresetListPage';
 import PresetRunPage from './pages/PresetRunPage';
+import PresetEditPage from './pages/PresetEditPage';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,6 +15,7 @@ function App() {
         <Route path="/preset-list" element={<PresetListPage />} />
         <Route path="/preset-register" element={<PresetRegisterPage />} />
         <Route path="/preset-run/:presetId" element={<PresetRunPage />} />
+        <Route path="/preset-edit/:presetId" element={<PresetEditPage />} />
       </Routes>
     </BrowserRouter>
   );
