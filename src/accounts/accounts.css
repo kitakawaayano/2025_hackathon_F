@@ -41,6 +41,7 @@
 
 .account-link-container a:hover span {
   text-decoration: underline;
+  font-weight: 500;
 }
 
 .account-link-container a span {

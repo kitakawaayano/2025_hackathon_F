@@ -46,9 +46,13 @@
 
 .preset-name {
   font-size: 1.2rem;
-  font-weight: normal;
+  font-weight: 400;
   color: var(--black);
   margin-right: 1.7rem;
+}
+
+.preset-list-item:hover .preset-name {
+  font-weight: 700;
 }
 
 .preset-info-ul {
