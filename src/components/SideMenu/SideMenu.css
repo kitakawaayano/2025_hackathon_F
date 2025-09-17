@@ -92,7 +92,7 @@
   transition: all 0.2s ease;
 }
 
-.preset-list-logoutButton {
+.preset-list-logoutButton:hover {
   background: linear-gradient(180deg, var(--mild-red), #cd5252);
   color: var(--white);
   font-weight: bold;
