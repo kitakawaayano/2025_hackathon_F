@@ -10,9 +10,12 @@ export const Login = () => {
     const [pw, setPw] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { login, logout } = useAuth();
 
 
+    useEffect(() => {
+        logout();
+    }, [])
     const handleLogin = async (event) => {
         event.preventDefault();
         setError('');
