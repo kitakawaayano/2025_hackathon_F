@@ -12,8 +12,7 @@ export const SignUp: React.FC = () => {
         control,
         handleSubmit,
         formState: { errors },
-        getValues,
-        setError
+        getValues
     } = useForm();
 
     const navigate = useNavigate();
@@ -50,7 +49,7 @@ export const SignUp: React.FC = () => {
                     <div className='input-container'>
                         <label htmlFor="user_name">
                             <span className="material-symbols-outlined">person</span>
-                            名前
+                            ユーザー名
                         </label>
                         <input
                             type="text"
@@ -58,7 +57,7 @@ export const SignUp: React.FC = () => {
                             placeholder="半角英数字と記号のみ使用可(._-)"
                             className={errors.user_name ? 'error-input' : ''}
                             {...register("user_name", {
-                                required: "名前は必須です",
+                                required: "ユーザー名は必須です",
                                 pattern: {
                                     value: /^[a-zA-Z0-9._-]+$/,
                                     message: "使用できない文字が含まれています"
