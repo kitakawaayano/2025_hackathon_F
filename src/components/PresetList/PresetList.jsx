@@ -6,7 +6,9 @@ import { useAuth } from '../../contexts/AuthContext';
 import SortButton from '../SortButton/SortButton';
 
 const getPreset = async (userId) => { 
-    const response = await fetch(`https://2025-hackathon-f-json.vercel.app/presets${userId ? `?user_id=${userId}` : ''}`, {
+    if (!userId) return [];
+    // const response = await fetch(`https://2025-hackathon-f-json.vercel.app/presets${userId ? `?user_id=${userId}` : ''}`, {
+    const response = await fetch(`http://localhost:3000/presets${userId ? `?user_id=${userId}` : ''}`, {    // 後で戻す
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -21,7 +23,8 @@ const getPreset = async (userId) => {
 const getTask = async (userId) => { 
     try {
         // まずユーザーのプリセットIDを取得
-        const presetsResponse = await fetch(`https://2025-hackathon-f-json.vercel.app/presets${ userId ? `?user_id=${userId}` : ''}`, {
+        // const presetsResponse = await fetch(`https://2025-hackathon-f-json.vercel.app/presets${ userId ? `?user_id=${userId}` : ''}`, {
+        const presetsResponse = await fetch(`http://localhost:3000/presets${userId ? `?user_id=${userId}` : ''}`, { // 後で戻す
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -36,7 +39,8 @@ const getTask = async (userId) => {
         }
         
         // 全てのタスクを取得してユーザーのプリセットに関連するもののみフィルタ
-        const tasksResponse = await fetch(`https://2025-hackathon-f-json.vercel.app/tasks`, {
+        // const tasksResponse = await fetch(`https://2025-hackathon-f-json.vercel.app/tasks`, {
+        const tasksResponse = await fetch(`http://localhost:3000/tasks`, {  // 後で戻す
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -125,12 +129,14 @@ function PresetList() {
         try {
             const relatedTasks = tasks.filter(task => task.preset_id === id);
             for (const task of relatedTasks) {
-                await fetch(`https://2025-hackathon-f-json.vercel.app/tasks/${task.id}`, {
+                // await fetch(`https://2025-hackathon-f-json.vercel.app/tasks/${task.id}`, {
+                await fetch(`http://localhost:3000/tasks/${task.id}`, { // 後で戻す
                     method: 'DELETE'
                 });
             }
 
-            await fetch(`https://2025-hackathon-f-json.vercel.app/presets/${id}`, {
+            // await fetch(`https://2025-hackathon-f-json.vercel.app/presets/${id}`, {
+            await fetch(`http://localhost:3000/presets/${id}`, {    // 後で戻す
                 method: 'DELETE'
             });
             toast.success("プリセットを削除しました");
@@ -146,10 +152,13 @@ function PresetList() {
     const location = useLocation();
 
     useEffect(() => {
-    if (location.state?.deleted) {
-        toast.success('プリセットを削除しました');
+        if (location.state?.login) {
+            toast.success('ログインに成功しました');
+        }
+        if (location.state?.deleted) {
+            toast.success('プリセットを削除しました');
+        }
         window.history.replaceState({}, document.title);
-    }
     }, [location]);
 
     const handleSearchChange = (event) => {

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { ToastContainer, toast } from 'react-toastify';
+import { useAuth } from '../contexts/AuthContext';
 import './accounts.css';
 
 export const SignUp: React.FC = () => {
@@ -16,16 +17,19 @@ export const SignUp: React.FC = () => {
     } = useForm();
 
     const navigate = useNavigate();
+    const { logout } = useAuth();
 
     const onSubmit = async ( data: any ) => {
         try {
-            const uniqueCheck = await axios.get(`https://2025-hackathon-f-json.vercel.app/users?user_name=${data.user_name}`);
+            // const uniqueCheck = await axios.get(`https://2025-hackathon-f-json.vercel.app/users?user_name=${data.user_name}`);
+            const uniqueCheck = await axios.get(`http://localhost:3000/users?user_name=${data.user_name}`); // 後で戻す
             if (uniqueCheck.data.length > 0) {
                 toast.error("アカウントの作成に失敗しました");
                 return;
             }
 
-            const response = await axios.post('https://2025-hackathon-f-json.vercel.app/users', {
+            // const response = await axios.post('https://2025-hackathon-f-json.vercel.app/users', {
+            const response = await axios.post('http://localhost:3000/users', {  // 後で戻す
                 user_name: data.user_name,
                 password: data.pw,
                 // password_confirmation: data.pw_con,
@@ -38,10 +42,14 @@ export const SignUp: React.FC = () => {
         }
     }
 
+    useEffect(() => {
+        logout();
+    }, [])
+
     return (
         <main className='account-main'>
             <div className='account-appName-container'>
-                <h1 className="app-name">アプリ名</h1>
+                <h1 className="app-name">Fu-Dandori</h1>
             </div>
             <div className="Register account-content-area">
                 <h2 className='page-title'>アカウント新規登録</h2>
@@ -124,7 +132,10 @@ export const SignUp: React.FC = () => {
                         />
                     </div>
                     <div className='account-link-container'>
-                        <Link to={`/login`}>すでにアカウントをお持ちの方はこちら</Link>
+                        <Link to={`/login`}>
+                            <span>すでにアカウントを</span>
+                            <span>お持ちの方はこちら</span>
+                        </Link>
                     </div>
                     <div className='button-container'>
                         <button type="submit" className='main-button'>登録</button>
