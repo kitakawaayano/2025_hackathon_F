@@ -1,37 +1,41 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
+import { ToastContainer, toast } from 'react-toastify';
 import './accounts.css';
 
 export const SignUp: React.FC = () => {
-    const [user_id, setUser_Id] = useState('');
-    const [user_name, setName] = useState('');
-    const [pw, setPw] = useState('');
-    const [pw_con, setPw_con] = useState('');
+    const {
+        register,
+        control,
+        handleSubmit,
+        formState: { errors },
+        getValues,
+        setError
+    } = useForm();
 
     const navigate = useNavigate();
 
-    const [error, setError] = useState<string | null > (null);
-
-    const handleSubmit = async ( e: React.FormEvent ) => {
-        e.preventDefault();
-        if(pw != pw_con) {
-            console.error("パスワードが一致しません。");
-            return;
-        }
-    
-
+    const onSubmit = async ( data: any ) => {
         try {
-        const response = await axios.post('http://localhost:3000/users', {
-            user_name: user_name,
-            password: pw,
-            password_confirmation: pw_con,
-        });
-            
-            alert("アカウントが作成されました。");
-            navigate("/");
+            const uniqueCheck = await axios.get(`http://localhost:3000/users?user_name=${data.user_name}`);
+            if (uniqueCheck.data.length > 0) {
+                toast.error("アカウントの作成に失敗しました");
+                return;
+            }
+
+            const response = await axios.post('http://localhost:3000/users', {
+                user_name: data.user_name,
+                password: data.pw,
+                // password_confirmation: data.pw_con,
+            });
+            navigate("/login", {
+                state: { signup: true }
+            });
         } catch (error) {
-            setError("アカウントを作成できませんでした。");
+            toast.error("アカウントの作成に失敗しました");
         }
     }
 
@@ -42,7 +46,7 @@ export const SignUp: React.FC = () => {
             </div>
             <div className="Register account-content-area">
                 <h2 className='page-title'>アカウント新規登録</h2>
-                <form onSubmit={handleSubmit} className="Form">
+                <form onSubmit={handleSubmit(onSubmit)} className="Form">
                     <div className='input-container'>
                         <label htmlFor="user_name">
                             <span className="material-symbols-outlined">person</span>
@@ -51,10 +55,25 @@ export const SignUp: React.FC = () => {
                         <input
                             type="text"
                             id="user_name"
-                            placeholder="名前を入力"
-                            value={user_name}
-                            onChange={(e) => setName(e.target.value)}
-                            />
+                            placeholder="半角英数字と記号のみ使用可(._-)"
+                            className={errors.user_name ? 'error-input' : ''}
+                            {...register("user_name", {
+                                required: "名前は必須です",
+                                pattern: {
+                                    value: /^[a-zA-Z0-9._-]+$/,
+                                    message: "使用できない文字が含まれています"
+                                },
+                                maxLength: {
+                                    value: 50,
+                                    message: "50文字以内で入力して下さい"
+                                }
+                            })}
+                        />
+                        <ErrorMessage
+                            errors={errors}
+                            name='user_name'
+                            render={({ message }) => <p className="error-message">{message}</p>}
+                        />
                     </div>
                     <div className='input-container'>
                         <label htmlFor="pw">
@@ -64,10 +83,25 @@ export const SignUp: React.FC = () => {
                         <input
                             type="password"
                             id='pw'
-                            placeholder="パスワードを入力"
-                            value={pw}
-                            onChange={(e) => setPw(e.target.value)}
-                            />
+                            placeholder="半角英数字と記号のみ使用可(!@#$%^&*._-+=?)"
+                            className={errors.pw ? 'error-input' : ''}
+                            {...register("pw", {
+                                required: "パスワードは必須です",
+                                pattern: {
+                                    value: /^[a-zA-Z0-9!@#$%^&*._\-+=?]+$/,
+                                    message: "使用できない文字が含まれています"
+                                },
+                                maxLength: {
+                                    value: 50,
+                                    message: "50文字以内で入力して下さい"
+                                }
+                            })}
+                        />
+                        <ErrorMessage
+                            errors={errors}
+                            name='pw'
+                            render={({ message }) => <p className="error-message">{message}</p>}
+                        />
                     </div>
                     <div className='input-container'>
                         <label htmlFor="pw_con">
@@ -78,15 +112,24 @@ export const SignUp: React.FC = () => {
                             type="password"
                             id='pw_con'
                             placeholder="パスワードを再度入力"
-                            value={pw_con}
-                            onChange={(e) => setPw_con(e.target.value)}
-                            />
+                            className={errors.pw_con ? 'error-input' : ''}
+                            {...register("pw_con", {
+                                required: "確認のためパスワードを再度入力して下さい",
+                                validate: (value) => value === getValues("pw") || "パスワードが一致しません"
+                            })}
+                        />
+                        <ErrorMessage
+                            errors={errors}
+                            name='pw_con'
+                            render={({ message }) => <p className="error-message">{message}</p>}
+                        />
                     </div>
                     <div className='button-container'>
                         <button type="submit" className='main-button'>登録</button>
                     </div>
                 </form>
             </div>
+            <ToastContainer />
         </main>
     );
 };

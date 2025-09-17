@@ -1,6 +1,7 @@
-import React, { useState, FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, FormEvent } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { ToastContainer, toast } from 'react-toastify';
 import './accounts.css';
 
 export const Login = () => {
@@ -35,7 +36,16 @@ export const Login = () => {
             }
         })
     }
-    
+
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.state?.signup) {
+            toast.success('アカウントが作成されました');
+            window.history.replaceState({}, document.title);
+        }
+    }, [location]);
+
     return (
         <main className='account-main'>
             <div className='account-appName-container'>
@@ -78,6 +88,7 @@ export const Login = () => {
                     </div>
                 </form>
             </div>
+            <ToastContainer />
         </main>
     )
 }
