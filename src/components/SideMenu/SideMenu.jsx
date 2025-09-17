@@ -1,9 +1,15 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './SideMenu.css';
+import { useAuth } from '../../contexts/AuthContext';
 
 const SideMenu = () => {
   const location = useLocation();
+  const { logout } = useAuth();
+  const handleLogout = async () => {
+    logout()
+  }
+
   return (
     <div className='sidemenu-area'>
       <div className="sidemenu">
@@ -18,6 +24,13 @@ const SideMenu = () => {
             <Link to="/preset-register"><span>プリセット</span><span>登録</span></Link>
           </li>
         </ul>
+
+        <div className='sidemenu-button-container'>
+          <button type="submit" onClick={handleLogout} className='preset-list-logoutButton'>
+            <span class="material-symbols-outlined">logout</span>
+            <span>ログアウト</span>
+          </button>
+        </div>
       </div>
     </div>
   );

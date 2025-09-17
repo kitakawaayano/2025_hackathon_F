@@ -78,6 +78,26 @@
   background: linear-gradient(180deg, var(--main-color), #556ed1);
 }
 
+.preset-list-logoutButton {
+  display: inline-flex;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--gray);
+  cursor: pointer;
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 100vmax;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.preset-list-logoutButton {
+  background: linear-gradient(180deg, var(--mild-red), #cd5252);
+  color: var(--white);
+  font-weight: bold;
+}
+
 @media screen and (max-width: 1000px) {
   .sidemenu-area {
     padding: 1rem;
