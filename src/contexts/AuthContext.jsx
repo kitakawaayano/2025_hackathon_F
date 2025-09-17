@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useCookies } from 'react-cookie';
 
 const AuthContext = createContext();
 
@@ -13,15 +14,18 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [cookies, setCookie, removeCookie] = useCookies(['id', 'username']);
 
   useEffect(() => {
-    // ローカルストレージから認証状態を復元
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
+    // Cookieから認証状態を復元
+    if (cookies.id && cookies.username) {
+      setUser({
+        id: cookies.id,
+        username: cookies.username
+      });
     }
     setLoading(false);
-  }, []);
+  }, [cookies]);
 
   const login = async (username, password) => {
     try {
@@ -40,12 +44,12 @@ export const AuthProvider = ({ children }) => {
       if (foundUser) {
         const userInfo = {
           id: foundUser.id,
-          username: foundUser.user_name,
-          loginTime: new Date().toISOString()
+          username: foundUser.user_name
         };
         
         setUser(userInfo);
-        localStorage.setItem('user', JSON.stringify(userInfo));
+        setCookie('id', foundUser.id, { path: '/' });
+        setCookie('username', foundUser.user_name, { path: '/' });
         return { success: true };
       } else {
         return { success: false, error: "ユーザー名またはパスワードが間違っています" };
@@ -58,7 +62,8 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user');
+    removeCookie('id', { path: '/' });
+    removeCookie('username', { path: '/' });
   };
 
   const value = {
