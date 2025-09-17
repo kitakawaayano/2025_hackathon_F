@@ -1,32 +1,43 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
 import { useCookies } from 'react-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import { useAuth } from '../contexts/AuthContext';
 import './accounts.css';
 
 export const Login = () => {
-    const [user_name, setName] = useState('');
-    const [pw, setPw] = useState('');
-    const [error, setError] = useState('');
+    const {
+        register,
+        control,
+        handleSubmit,
+        formState: { errors },
+        getValues,
+        setError
+    } = useForm();
+
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { login, logout } = useAuth();
 
-
-    const handleLogin = async (event) => {
-        event.preventDefault();
-        setError('');
-
-        const result = await login(user_name, pw);
-        
-        if (result.success) {
-            alert("ログイン成功");
-            navigate("/");
-        } else {
-            setError(result.error || "ログインに失敗しました。");
+      useEffect(() => {
+        logout();
+    }, [])
+    const onSubmit = async (data) => {
+        try {
+            const result = await login(data.user_name, data.pw);
+            if (result.success) {
+                navigate("/", {
+                    state: { login: true }
+                });
+            } else {
+                toast.error("ログインに失敗しました");
+            }
+        } catch (error) {
+            toast.error("ログインに失敗しました");
         }
-    };
-  
+    }
+
     const location = useLocation();
 
     useEffect(() => {
@@ -43,19 +54,33 @@ export const Login = () => {
             </div>
             <div className='Login account-content-area'>
                 <h2 className='page-title'>ログイン</h2>
-                <form onSubmit={handleLogin}>
+                <form onSubmit={handleSubmit(onSubmit)} className='Form'>
                     <div className='input-container'>
                         <label htmlFor="user_name">
                             <span className="material-symbols-outlined">person</span>
-                            名前
+                            ユーザー名
                         </label>
                         <input
                             type="text"
                             id='user_name'
-                            placeholder="名前を入力"
-                            value={user_name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
+                            placeholder="半角英数字と記号のみ使用可(._-)"
+                            className={errors.user_name ? 'error-input' : ''}
+                            {...register("user_name", {
+                                required: "ユーザー名は必須です",
+                                pattern: {
+                                    value: /^[a-zA-Z0-9._-]+$/,
+                                    message: "使用できない文字が含まれています"
+                                },
+                                maxLength: {
+                                    value: 50,
+                                    message: "50文字以内で入力して下さい"
+                                }
+                            })}
+                        />
+                        <ErrorMessage
+                            errors={errors}
+                            name='user_name'
+                            render={({ message }) => <p className="error-message">{message}</p>}
                         />
                     </div>
                     <div className='input-container'>
@@ -66,13 +91,26 @@ export const Login = () => {
                         <input
                             type="password"
                             id='pw'
-                            placeholder="パスワードを入力"
-                            value={pw}
-                            onChange={(e) => setPw(e.target.value)}
-                            required
+                            placeholder="半角英数字と記号のみ使用可(!@#$%^&*._-+=?)"
+                            className={errors.pw ? 'error-input' : ''}
+                            {...register("pw", {
+                                required: "パスワードは必須です",
+                                pattern: {
+                                    value: /^[a-zA-Z0-9!@#$%^&*._\-+=?]+$/,
+                                    message: "使用できない文字が含まれています"
+                                },
+                                maxLength: {
+                                    value: 50,
+                                    message: "50文字以内で入力して下さい"
+                                }
+                            })}
+                        />
+                        <ErrorMessage
+                            errors={errors}
+                            name='pw'
+                            render={({ message }) => <p className="error-message">{message}</p>}
                         />
                     </div>
-                    {error && <div className='error-message'>{error}</div>}
                     <div className='button-container'>
                         <button type="submit" className='main-button'>ログイン</button>
                     </div>
