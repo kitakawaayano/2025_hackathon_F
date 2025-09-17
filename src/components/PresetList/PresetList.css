@@ -28,6 +28,19 @@
   gap: 1rem;
 }
 
+.preset-list-empty {
+  text-align: center;
+  color: var(--gray);
+  font-size: 1.2rem;
+  margin: 2rem auto;
+  display: inline-flex;
+  align-items: center;
+}
+
+.preset-list-empty .material-symbols-outlined {
+  font-size: 2rem;
+}
+
 .preset-list-item {
   background-color: var(--mild-gray);
   color: var(--black);

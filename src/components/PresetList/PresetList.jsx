@@ -234,6 +234,13 @@ function PresetList() {
             </SortButton>
         </div>
         <div className='preset-list-container'>
+            {sortedData.length === 0 ?
+                <div className='preset-list-empty'>
+                    <span className="material-symbols-outlined">exclamation</span>
+                    プリセットがありません
+                </div>
+            : ''}
+
             {sortedData.map(preset =>
                 <div key={preset.id} className='preset-list-item'>
                     <Link to={`/preset-run/${preset.id}`} className='no-textDecoration'>
