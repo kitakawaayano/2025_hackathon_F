@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+.account-main {
+  flex-direction: column;
+  justify-content:center;
+	align-items:center;
+  max-width: 800px;
+}
+
+.account-appName-container,
+.account-content-area {
+  background-color: var(--white);
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+}
+
+.account-appName-container {
+  padding: 1.5rem;
+}
+
+.account-appName-container .app-name {
+  border-bottom: 0;
+  padding-bottom: 0;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.account-content-area {
+  padding: 2rem 4rem;
+}
+
+.account-content-area .button-container {
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 1000px) {
+  .account-main {
+    display: flex;
+    height: 100vh;
+  }
+
+  .account-appName-container,
+  .account-content-area {
+    background-color: var(--white);
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+}
