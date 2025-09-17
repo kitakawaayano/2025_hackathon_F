@@ -2,41 +2,31 @@ import React, { useState, useEffect, FormEvent } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { ToastContainer, toast } from 'react-toastify';
+import { useAuth } from '../contexts/AuthContext';
 import './accounts.css';
 
 export const Login = () => {
     const [user_name, setName] = useState('');
     const [pw, setPw] = useState('');
-    const navigate = useNavigate();
     const [error, setError] = useState('');
-    const [cookies, setCookie] = useCookies(['id']);
+    const navigate = useNavigate();
+    const { login } = useAuth();
 
 
-    const getUsers = async () => {
+    const handleLogin = async (event) => {
         event.preventDefault();
+        setError('');
 
-        const response = await fetch("http://localhost:3000/users", {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-        const data = await response.json();
-
-        data.map(user =>{
-            if (user.user_name == user_name && user.password == pw){
-                setCookie('id', user.id);
-                alert("ログイン成功");
-                
-                navigate("/");
-
-            }else {
-                // console.error(error);
-                setError("ログインに失敗しました。")
-            }
-        })
-    }
-
+        const result = await login(user_name, pw);
+        
+        if (result.success) {
+            alert("ログイン成功");
+            navigate("/");
+        } else {
+            setError(result.error || "ログインに失敗しました。");
+        }
+    };
+  
     const location = useLocation();
 
     useEffect(() => {
@@ -45,7 +35,7 @@ export const Login = () => {
             window.history.replaceState({}, document.title);
         }
     }, [location]);
-
+    
     return (
         <main className='account-main'>
             <div className='account-appName-container'>
@@ -53,7 +43,7 @@ export const Login = () => {
             </div>
             <div className='Login account-content-area'>
                 <h2 className='page-title'>ログイン</h2>
-                <form onSubmit={getUsers}>
+                <form onSubmit={handleLogin}>
                     <div className='input-container'>
                         <label htmlFor="user_name">
                             <span className="material-symbols-outlined">person</span>

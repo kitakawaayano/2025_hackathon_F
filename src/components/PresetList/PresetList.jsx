@@ -2,11 +2,11 @@ import './PresetList.css';
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import { useCookies } from 'react-cookie';
+import { useAuth } from '../../contexts/AuthContext';
 import SortButton from '../SortButton/SortButton';
 
-const getPreset = async (id) => { 
-    const response = await fetch(`http://localhost:3000/presets?user_id=${id}`, {
+const getPreset = async (userId) => { 
+    const response = await fetch(`http://localhost:3000/presets${userId ? `?user_id=${userId}` : ''}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -18,17 +18,38 @@ const getPreset = async (id) => {
     return data;
 }
 
-const getTask = async () => { 
-    const response = await fetch('http://localhost:3000/tasks', {
-        method: 'GET',
-        header: {
-            'Content-Type': 'application/json',
+const getTask = async (userId) => { 
+    try {
+        // まずユーザーのプリセットIDを取得
+        const presetsResponse = await fetch(`http://localhost:3000/presets${userId ? `?user_id=${userId}` : ''}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        const presets = await presetsResponse.json();
+        const presetIds = presets.map(preset => preset.id);
+        
+        // プリセットIDが存在しない場合は空配列を返す
+        if (presetIds.length === 0) {
+            return [];
         }
-    });
-
-    const data = await response.json();
-    // console.log(data);
-    return data;
+        
+        // 全てのタスクを取得してユーザーのプリセットに関連するもののみフィルタ
+        const tasksResponse = await fetch(`http://localhost:3000/tasks`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        const allTasks = await tasksResponse.json();
+        
+        // ユーザーのプリセットに関連するタスクのみを返す
+        return allTasks.filter(task => presetIds.includes(task.preset_id));
+    } catch (error) {
+        console.error('Error fetching tasks:', error);
+        return [];
+    }
 }
 
 
@@ -37,29 +58,35 @@ function PresetList() {
     const [data, setData] = useState([]);
     const [tasks, setTasks] = useState([]);
     const [searchKeyword, setSearchKeyword] = useState('');
-    const [cookies, setCookie] = useCookies(['id']);
     const [sortConfig, setSortConfig] = useState({
         key: '',
         order: 'asc'
     });
 
-    useEffect(() => {
-        getPreset(cookies.id).then(result => {
-            setData(result);
-            // console.log(result);
-        });
-    }, []);
+    const { user } = useAuth(); // 認証コンテキストからユーザー情報を取得
 
     useEffect(() => {
-        if (data.length > 0) {
-            data.map(count => {
-                getTask(count).then(result => {
-                    setTasks(result);
-                    // console.log(result);
-                });
+        if (user) {
+            getPreset(user.id).then(result => {
+                setData(result);
+                // console.log(result);
+            });
+        } else {
+            // ユーザーが未ログインの場合はデータをクリア
+            setData([]);
+            setTasks([]);
+        }
+    }, [user]);
+
+    useEffect(() => {
+        if (data.length > 0 && user) {
+            // ユーザー固有のタスクデータを取得
+            getTask(user.id).then(result => {
+                setTasks(result);
+                // console.log(result);
             });
         }
-    }, [data]);
+    }, [data, user]);
 
     // console.log(tasks);
 
@@ -98,7 +125,8 @@ function PresetList() {
             });
             toast.success("プリセットを削除しました");
 
-            const newData = await getPreset(cookies.id);
+            // ユーザー固有のデータで更新
+            const newData = await getPreset(user.id);
             setData(newData);
         } catch (e) {
             toast.error("プリセットの削除に失敗しました")
