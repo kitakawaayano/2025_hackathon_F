@@ -146,10 +146,13 @@ function PresetList() {
     const location = useLocation();
 
     useEffect(() => {
-    if (location.state?.deleted) {
-        toast.success('プリセットを削除しました');
+        if (location.state?.login) {
+            toast.success('ログインに成功しました');
+        }
+        if (location.state?.deleted) {
+            toast.success('プリセットを削除しました');
+        }
         window.history.replaceState({}, document.title);
-    }
     }, [location]);
 
     const handleSearchChange = (event) => {
