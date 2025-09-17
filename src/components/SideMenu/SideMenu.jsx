@@ -23,9 +23,6 @@ const SideMenu = () => {
           <li className={location.pathname === '/preset-register' ? 'active' : ''}>
             <Link to="/preset-register"><span>プリセット</span><span>登録</span></Link>
           </li>
-          <li>
-            <button type="submit" onClick={handleLogout}>ログアウト</button>
-          </li>
         </ul>
 
         <div className='sidemenu-button-container'>
