@@ -18,8 +18,11 @@ export const Login = () => {
     } = useForm();
 
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { login, logout } = useAuth();
 
+      useEffect(() => {
+        logout();
+    }, [])
     const onSubmit = async (data) => {
         try {
             const result = await login(data.user_name, data.pw);
