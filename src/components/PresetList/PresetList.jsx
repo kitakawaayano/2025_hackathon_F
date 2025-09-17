@@ -2,11 +2,12 @@ import './PresetList.css';
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import { useCookies } from 'react-cookie';
 
-const getPreset = async () => { 
-    const response = await fetch('http://localhost:3000/presets', {
+const getPreset = async (id) => { 
+    const response = await fetch(`http://localhost:3000/presets?user_id=${id}`, {
         method: 'GET',
-        header: {
+        headers: {
             'Content-Type': 'application/json',
         }
     });
@@ -35,10 +36,11 @@ function PresetList() {
     const [data, setData] = useState([]);
     const [tasks, setTasks] = useState([]);
     const [searchKeyword, setSearchKeyword] = useState('');
+    const [cookies, setCookie] = useCookies(['id']);
 
 
     useEffect(() => {
-        getPreset().then(result => {
+        getPreset(cookies.id).then(result => {
             setData(result);
             // console.log(result);
         });
@@ -92,7 +94,7 @@ function PresetList() {
             });
             toast.success("プリセットを削除しました");
 
-            const newData = await getPreset();
+            const newData = await getPreset(cookies.id);
             setData(newData);
         } catch (e) {
             toast.error("プリセットの削除に失敗しました")
