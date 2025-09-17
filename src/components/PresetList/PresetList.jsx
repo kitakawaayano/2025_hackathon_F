@@ -63,7 +63,17 @@ function PresetList() {
         order: 'asc'
     });
 
+
+    useEffect(() => {
+        console.log(user)
+        getPreset(user).then(result => {
+            setData(result);
+            // console.log(result);
+        });
+    }, []);
+
     const { user } = useAuth(); // 認証コンテキストからユーザー情報を取得
+
 
     useEffect(() => {
         if (user) {
