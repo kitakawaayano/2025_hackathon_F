@@ -57,8 +57,10 @@ export const SignUp: React.FC = () => {
                 <form onSubmit={handleSubmit(onSubmit)} className="Form">
                     <div className='input-container'>
                         <label htmlFor="user_name">
-                            <span className="material-symbols-outlined">person</span>
-                            ユーザー名
+                            <div>
+                                <span className="material-symbols-outlined">person</span>
+                                ユーザー名
+                            </div>
                         </label>
                         <input
                             type="text"
@@ -85,8 +87,10 @@ export const SignUp: React.FC = () => {
                     </div>
                     <div className='input-container'>
                         <label htmlFor="pw">
-                            <span className="material-symbols-outlined">key_vertical</span>
-                            パスワード
+                            <div>
+                                <span className="material-symbols-outlined">key_vertical</span>
+                                パスワード
+                            </div>
                         </label>
                         <input
                             type="password"
@@ -113,8 +117,10 @@ export const SignUp: React.FC = () => {
                     </div>
                     <div className='input-container'>
                         <label htmlFor="pw_con">
-                            <span className="material-symbols-outlined">check_circle</span>
-                            パスワード(確認)
+                            <div>
+                                <span className="material-symbols-outlined">check_circle</span>
+                                パスワード(確認)
+                            </div>
                         </label>
                         <input
                             type="password"

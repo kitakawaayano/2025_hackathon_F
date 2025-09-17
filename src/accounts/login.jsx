@@ -59,8 +59,10 @@ export const Login = () => {
                 <form onSubmit={handleSubmit(onSubmit)} className='Form'>
                     <div className='input-container'>
                         <label htmlFor="user_name">
-                            <span className="material-symbols-outlined">person</span>
-                            ユーザー名
+                            <div>
+                                <span className="material-symbols-outlined">person</span>
+                                ユーザー名
+                            </div>
                         </label>
                         <input
                             type="text"
@@ -87,8 +89,10 @@ export const Login = () => {
                     </div>
                     <div className='input-container'>
                         <label htmlFor="pw">
-                            <span className="material-symbols-outlined">key_vertical</span>
-                            パスワード
+                            <div>
+                                <span className="material-symbols-outlined">key_vertical</span>
+                                パスワード
+                            </div>
                         </label>
                         <input
                             type="password"

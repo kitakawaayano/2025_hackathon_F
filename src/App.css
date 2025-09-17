@@ -71,6 +71,9 @@ main {
 .input-container label {
   font-size: 1rem;
   display: block;
+}
+
+.input-container label div {
   display: inline-flex;
 	align-items: center;
 }
