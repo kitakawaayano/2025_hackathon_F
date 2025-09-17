@@ -1,6 +1,7 @@
 const deleteTask = async (taskId) => {
     try {
-        const response = await fetch(`https://2025-hackathon-f-json.vercel.app/tasks/${taskId}`, {
+        // const response = await fetch(`https://2025-hackathon-f-json.vercel.app/tasks/${taskId}`, {
+        const response = await fetch(`http://localhost:3000/tasks/${taskId}`, {  // 後で戻す
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

@@ -2,7 +2,8 @@ import postTask from './task';
 
 const putTask = async (tasks, presetid) => {
 
-    const response = await fetch(`https://2025-hackathon-f-json.vercel.app/tasks/${tasks.id}`, {
+    // const response = await fetch(`https://2025-hackathon-f-json.vercel.app/tasks/${tasks.id}`, {
+    const response = await fetch(`http://localhost:3000/tasks/${tasks.id}`, {   // 後で戻す
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
