@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Preset from './Preset';
 import Task from './Task/Task';
 import postPreset from '../hooks/preset';
+import { useCookies } from 'react-cookie';
 
 function PresetTaskContainer() {
   const {
@@ -16,10 +17,11 @@ function PresetTaskContainer() {
   } = useForm({
     defaultValues: {
       name: '',
-      finish: '',
+      finishtime: '',
       tasks: [{ name: '', tasktime: '', importance: '1' }]
     }
   });
+  const [cookies, setCookie] = useCookies(['id']);
 
   const { fields, append, remove } = useFieldArray({
       control,
@@ -30,7 +32,7 @@ function PresetTaskContainer() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await postPreset(data.name, data.finishtime, data.tasks);
+      const response = await postPreset(data.name, data.finishtime, data.tasks, cookies.id);
       toast.success(
         <div>
           プリセットを登録しました<br />

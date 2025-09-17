@@ -44,6 +44,10 @@ function PresetList() {
     });
 
     useEffect(() => {
+        // const cookies = document.cookie.split(';');
+        // console.log(cookies);
+        // const user_id = cookies.find(row => row.startsWith('user_id='));
+        // console.log(user_id);
         getPreset(cookies.id).then(result => {
             setData(result);
             // console.log(result);

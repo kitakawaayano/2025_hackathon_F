@@ -1,7 +1,6 @@
 import postTask from './task';  
 
-const postPreset = async (name, finishtime, tasks) => {
-
+const postPreset = async (name, finishtime, tasks, userId) => {
     const response = await fetch('http://localhost:3000/presets', {
         method: 'POST',
         headers: {
@@ -9,7 +8,8 @@ const postPreset = async (name, finishtime, tasks) => {
         },
         body: JSON.stringify({
             preset_name: name,
-            finish_time: finishtime
+            finish_time: finishtime,
+            user_id: userId
         }),
     });
     const data = await response.json();
