@@ -1,5 +1,6 @@
 import React, { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import './accounts.css';
 
 export const Login = () => {
@@ -7,6 +8,7 @@ export const Login = () => {
     const [pw, setPw] = useState('');
     const navigate = useNavigate();
     const [error, setError] = useState('');
+    const [cookies, setCookie] = useCookies(['id']);
 
 
     const getUsers = async () => {
@@ -22,12 +24,13 @@ export const Login = () => {
 
         data.map(user =>{
             if (user.user_name == user_name && user.password == pw){
+                setCookie('id', user.id);
                 alert("ログイン成功");
                 
                 navigate("/");
 
             }else {
-                console.error(error);
+                // console.error(error);
                 setError("ログインに失敗しました。")
             }
         })
