@@ -19,13 +19,13 @@ export const SignUp: React.FC = () => {
 
     const onSubmit = async ( data: any ) => {
         try {
-            const uniqueCheck = await axios.get(`http://localhost:3000/users?user_name=${data.user_name}`);
+            const uniqueCheck = await axios.get(`https://2025-hackathon-f-json.vercel.app/users?user_name=${data.user_name}`);
             if (uniqueCheck.data.length > 0) {
                 toast.error("アカウントの作成に失敗しました");
                 return;
             }
 
-            const response = await axios.post('http://localhost:3000/users', {
+            const response = await axios.post('https://2025-hackathon-f-json.vercel.app/users', {
                 user_name: data.user_name,
                 password: data.pw,
                 // password_confirmation: data.pw_con,

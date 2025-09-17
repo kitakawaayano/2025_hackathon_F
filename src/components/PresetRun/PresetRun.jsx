@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 const getPreset = async (presetId) => { 
-    const response = await fetch(`http://localhost:3000/presets/${presetId}`, {
+    const response = await fetch(`https://2025-hackathon-f-json.vercel.app/presets/${presetId}`, {
         method: 'GET',
         header: {
             'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ const getPreset = async (presetId) => {
 }
 
 const getTask = async (presetId) => { 
-    const response = await fetch('http://localhost:3000/tasks', {
+    const response = await fetch('https://2025-hackathon-f-json.vercel.app/tasks', {
         method: 'GET',
         header: {
             'Content-Type': 'application/json',
