@@ -212,12 +212,13 @@ function PresetList() {
             />
         </div>
         <div className='preset-sortButton-container'>
+            <span>並べ替え : </span>
             <SortButton
                 sort='preset_name'
                 handleSort={handleSort}
                 className={sortConfig.key === 'preset_name' ? 'active-sortButton' : ''}>
 
-                名前順 {sortConfig.key === 'preset_name' && (sortConfig.order === 'asc' ?
+                名前 {sortConfig.key === 'preset_name' && (sortConfig.order === 'asc' ?
                 <span className="material-symbols-outlined">keyboard_arrow_up</span> :
                 <span className="material-symbols-outlined">keyboard_arrow_down</span>)}
             </SortButton>
@@ -228,7 +229,7 @@ function PresetList() {
                 className={sortConfig.key === 'finish_time' ? 'active-sortButton' : ''}>
 
 
-                終了目標時刻順 {sortConfig.key === 'finish_time' && (sortConfig.order === 'asc' ?
+                終了目標時刻 {sortConfig.key === 'finish_time' && (sortConfig.order === 'asc' ?
                 <span className="material-symbols-outlined">keyboard_arrow_up</span> :
                 <span className="material-symbols-outlined">keyboard_arrow_down</span>)}
             </SortButton>
