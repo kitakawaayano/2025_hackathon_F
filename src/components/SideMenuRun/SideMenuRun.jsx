@@ -219,7 +219,7 @@ function SideMenuRun({ filteredTasks, completedCount }) {
         </div>
 
 
-        <div className='preset-run-button-container'>
+        <div className='sidemenu-button-container'>
           <Link to={`/preset-edit/${id}`} className='preset-run-editButton'>
             <span>このプリセットを</span>
             <span>編集する</span>

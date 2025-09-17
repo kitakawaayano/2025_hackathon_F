@@ -10,7 +10,6 @@ const SideMenu = () => {
     logout()
   }
 
-
   return (
     <div className='sidemenu-area'>
       <div className="sidemenu">
@@ -24,10 +23,14 @@ const SideMenu = () => {
           <li className={location.pathname === '/preset-register' ? 'active' : ''}>
             <Link to="/preset-register"><span>プリセット</span><span>登録</span></Link>
           </li>
-          <li>
-            <button type="submit" onClick={handleLogout}>ログアウト</button>
-          </li>
         </ul>
+
+        <div className='sidemenu-button-container'>
+          <button type="submit" onClick={handleLogout} className='preset-list-logoutButton'>
+            <span class="material-symbols-outlined">logout</span>
+            <span>ログアウト</span>
+          </button>
+        </div>
       </div>
     </div>
   );

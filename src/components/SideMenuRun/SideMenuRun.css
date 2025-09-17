@@ -41,7 +41,7 @@
   font-weight: bold;
 }
 
-.preset-run-button-container {
+.sidemenu-button-container {
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -76,12 +76,14 @@
 }
 
 @media screen and (max-width: 1000px) {
+  .sidemenu {
+    padding: 0 1.5rem;
+  }
   .sidemenu-info-container {
     flex-direction: row;
     gap: 0rem;
-    margin: 0;
+    margin: 1rem 0 0 0;
   }
-
 
   .sidemenu h3 {
     margin: 1rem 0;
@@ -89,7 +91,8 @@
     flex-direction: column;
   }
 
-  .preset-run-button-container {
+  .sidemenu-button-container {
+    margin-top: 1rem;
     margin-bottom: 0;
     gap: 0.5rem;
   }
