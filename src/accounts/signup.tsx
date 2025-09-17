@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { ToastContainer, toast } from 'react-toastify';
@@ -122,6 +122,9 @@ export const SignUp: React.FC = () => {
                             name='pw_con'
                             render={({ message }) => <p className="error-message">{message}</p>}
                         />
+                    </div>
+                    <div className='account-link-container'>
+                        <Link to={`/login`}>すでにアカウントをお持ちの方はこちら</Link>
                     </div>
                     <div className='button-container'>
                         <button type="submit" className='main-button'>登録</button>

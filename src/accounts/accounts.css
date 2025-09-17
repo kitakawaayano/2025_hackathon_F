@@ -30,6 +30,19 @@
   padding: 2rem 4rem;
 }
 
+.account-link-container {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.account-link-container a {
+  text-decoration: none;
+}
+
+.account-link-container a:hover {
+  text-decoration: underline;
+}
+
 .account-content-area .button-container {
   margin-bottom: 0;
 }
