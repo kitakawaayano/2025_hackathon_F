@@ -11,25 +11,25 @@ export const SignUp: React.FC = () => {
 
     const navigate = useNavigate();
 
-    const [error, setError] = useState<string | null > (null);
+    const [error, setError] = useState<string | null>(null);
 
-    const handleSubmit = async ( e: React.FormEvent ) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if(pw != pw_con) {
+        if (pw != pw_con) {
             console.error("パスワードが一致しません。");
             return;
         }
-    
+
 
         try {
-        const response = await axios.post('http://localhost:3000/users', {
-            user_name: user_name,
-            password: pw,
-            password_confirmation: pw_con,
-        });
-            
-            alert("アカウントが作成されました。");
-            navigate("/");
+            const response = await axios.post('http://localhost:3000/users', {
+                user_name: user_name,
+                password: pw,
+                password_confirmation: pw_con,
+            });
+
+            alert("アカウントが作成されました。ログインしてください。");
+            navigate("/login");
         } catch (error) {
             setError("アカウントを作成できませんでした。");
         }
@@ -54,7 +54,7 @@ export const SignUp: React.FC = () => {
                             placeholder="名前を入力"
                             value={user_name}
                             onChange={(e) => setName(e.target.value)}
-                            />
+                        />
                     </div>
                     <div className='input-container'>
                         <label htmlFor="pw">
@@ -67,7 +67,7 @@ export const SignUp: React.FC = () => {
                             placeholder="パスワードを入力"
                             value={pw}
                             onChange={(e) => setPw(e.target.value)}
-                            />
+                        />
                     </div>
                     <div className='input-container'>
                         <label htmlFor="pw_con">
@@ -80,7 +80,7 @@ export const SignUp: React.FC = () => {
                             placeholder="パスワードを再度入力"
                             value={pw_con}
                             onChange={(e) => setPw_con(e.target.value)}
-                            />
+                        />
                     </div>
                     <div className='button-container'>
                         <button type="submit" className='main-button'>登録</button>
