@@ -13,7 +13,6 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [cookies, setCookie, removeCookie] = useCookies(['id', 'username']);
 
   useEffect(() => {
@@ -24,7 +23,6 @@ export const AuthProvider = ({ children }) => {
         username: cookies.username
       });
     }
-    setLoading(false);
   }, [cookies]);
 
   const login = async (username, password) => {
@@ -70,7 +68,6 @@ export const AuthProvider = ({ children }) => {
     user,
     login,
     logout,
-    loading,
     isAuthenticated: !!user
   };
 
