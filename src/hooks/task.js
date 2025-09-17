@@ -1,6 +1,6 @@
 const postTask = async (tasks, presetid) => {
 
-    const response = await fetch('http://localhost:3000/tasks', {
+    const response = await fetch('https://2025-hackathon-f-json.vercel.app/tasks', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await fetch("http://localhost:3000/users", {
+      const response = await fetch("https://2025-hackathon-f-json.vercel.app/users", {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
