@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useCookies } from 'react-cookie';
@@ -110,6 +110,9 @@ export const Login = () => {
                             name='pw'
                             render={({ message }) => <p className="error-message">{message}</p>}
                         />
+                    </div>
+                    <div className='account-link-container'>
+                        <Link to={`/signup`}>アカウントをお持ちでない方はこちら</Link>
                     </div>
                     <div className='button-container'>
                         <button type="submit" className='main-button'>ログイン</button>
