@@ -3,6 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { useCookies } from 'react-cookie';
+<<<<<<< HEAD
+=======
+import SortButton from '../SortButton/SortButton';
+>>>>>>> main
 
 const getPreset = async (id) => { 
     const response = await fetch(`http://localhost:3000/presets?user_id=${id}`, {
@@ -37,6 +41,11 @@ function PresetList() {
     const [tasks, setTasks] = useState([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [cookies, setCookie] = useCookies(['id']);
+
+    const [sortConfig, setSortConfig] = useState({
+        key: '',
+        order: 'asc'
+    });
 
 
     useEffect(() => {
