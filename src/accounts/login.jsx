@@ -1,47 +1,47 @@
-import React, { useState, FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 export const Login = () => {
     const [user_name, setName] = useState('');
     const [pw, setPw] = useState('');
-    const navigate = useNavigate();
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { login } = useAuth();
 
+    const from = location.state?.from?.pathname || '/preset-list';
 
-    const getUsers = async () => {
+    const handleLogin = async (event) => {
         event.preventDefault();
+        setLoading(true);
+        setError('');
 
-        const response = await fetch("http://localhost:3000/users", {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-        const data = await response.json();
+        const result = await login(user_name, pw);
 
-        data.map(user =>{
-            if (user.user_name == user_name && user.password == pw){
-                alert("ログイン成功");
-                
-                navigate("/");
+        if (result.success) {
+            // ログイン成功時は元のページまたはホームにリダイレクト
+            navigate(from, { replace: true });
+        } else {
+            setError(result.error);
+        }
 
-            }else {
-                console.error(error);
-                setError("ログインに失敗しました。")
-            }
-        })
-    }
+        setLoading(false);
+    };
     
     return (
         <div className='Login'>
             <h1>ログイン</h1>
-            <form onSubmit={getUsers}>
+            <form onSubmit={handleLogin}>
                 <input
                     type="text"
                     value={user_name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="名前"
+                    placeholder="ユーザー名"
                     required
+                    disabled={loading}
                 />
                 <input
                     type="password"
@@ -49,9 +49,12 @@ export const Login = () => {
                     onChange={(e) => setPw(e.target.value)}
                     placeholder="パスワード"
                     required
+                    disabled={loading}
                 />
                 {error && <div style={{ color: 'red' }}>{error}</div>}
-                <button type="submit">ログイン</button>
+                <button type="submit" disabled={loading}>
+                    {loading ? 'ログイン中...' : 'ログイン'}
+                </button>
             </form>
         </div>
     )
