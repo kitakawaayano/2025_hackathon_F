@@ -14,7 +14,7 @@ const SideMenu = () => {
     <div className='sidemenu-area'>
       <div className="sidemenu">
         <h1 className="app-name">
-          <Link to="/preset-list">アプリ名</Link>
+          <Link to="/preset-list">Fu-Dandori</Link>
         </h1>
         <ul className="menu-list">
           <li className={['/', '/preset-list'].includes(location.pathname) ? 'active' : ''}>
@@ -27,7 +27,7 @@ const SideMenu = () => {
 
         <div className='sidemenu-button-container'>
           <button type="submit" onClick={handleLogout} className='preset-list-logoutButton'>
-            <span class="material-symbols-outlined">logout</span>
+            <span className="material-symbols-outlined">logout</span>
             <span>ログアウト</span>
           </button>
         </div>

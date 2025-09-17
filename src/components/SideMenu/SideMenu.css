@@ -24,11 +24,14 @@
 }
 
 .app-name {
+  font-family: "Pacifico", cursive !important;
   color: var(--main-color);
   font-size: 1.8rem;
+  line-height: 2rem;
   font-weight: bold;
-  padding-bottom: 1.5rem;
+  padding: 1rem 0 2rem 0;
   border-bottom: 0.1rem solid var(--mild-gray);
+  user-select: none;
 }
 
 .app-name a {
@@ -38,6 +41,7 @@
 
 .app-name a:hover {
   text-decoration: underline;
+  text-decoration-style: dashed;
 }
 
 .menu-list {

@@ -55,6 +55,7 @@ function PresetRun({ setFilteredTasks, setCompletedCount }) {
     useEffect(() => {
         getPreset(presetId).then(result => {
           setPreset(result);
+          document.title = `${result.preset_name} | Fu-Dandori`;
         });
         getTask(presetId).then(filteredTask => {
           setTasks(filteredTask)

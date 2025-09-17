@@ -21,9 +21,9 @@
 
 .account-appName-container .app-name {
   border-bottom: 0;
-  padding-bottom: 0;
+  padding: 1rem 0;
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
 .account-content-area {
@@ -39,8 +39,12 @@
   text-decoration: none;
 }
 
-.account-link-container a:hover {
+.account-link-container a:hover span {
   text-decoration: underline;
+}
+
+.account-link-container a span {
+  display: inline-block;
 }
 
 .account-content-area .button-container {

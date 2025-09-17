@@ -191,7 +191,7 @@ function SideMenuRun({ filteredTasks, completedCount }) {
     <div className='sidemenu-area'>
       <div className="sidemenu">
         <h1 className="app-name">
-          <Link to="/preset-list">アプリ名</Link>
+          <Link to="/preset-list">Fu-Dandori</Link>
         </h1>
 
         <div className='sidemenu-info-container'>

@@ -20,9 +20,11 @@ export const Login = () => {
     const navigate = useNavigate();
     const { login, logout } = useAuth();
 
-      useEffect(() => {
+    useEffect(() => {
         logout();
+        document.title = 'ログイン | Fu-Dandori';
     }, [])
+
     const onSubmit = async (data) => {
         try {
             const result = await login(data.user_name, data.pw);
@@ -50,7 +52,7 @@ export const Login = () => {
     return (
         <main className='account-main'>
             <div className='account-appName-container'>
-                <h1 className='app-name'>アプリ名</h1>
+                <h1 className='app-name'>Fu-Dandori</h1>
             </div>
             <div className='Login account-content-area'>
                 <h2 className='page-title'>ログイン</h2>
@@ -112,7 +114,11 @@ export const Login = () => {
                         />
                     </div>
                     <div className='account-link-container'>
-                        <Link to={`/signup`}>アカウントをお持ちでない方はこちら</Link>
+                        <Link to={`/signup`}>
+                            <span>アカウントを</span>
+                            <span>お持ちでない方は</span>
+                            <span>こちら</span>
+                        </Link>
                     </div>
                     <div className='button-container'>
                         <button type="submit" className='main-button'>ログイン</button>

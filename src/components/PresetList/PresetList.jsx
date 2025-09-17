@@ -69,11 +69,7 @@ function PresetList() {
 
 
     useEffect(() => {
-        console.log(user)
-        getPreset(user).then(result => {
-            setData(result);
-            // console.log(result);
-        });
+        document.title = 'プリセット一覧 | Fu-Dandori';
     }, []);
 
     const { user } = useAuth(); // 認証コンテキストからユーザー情報を取得

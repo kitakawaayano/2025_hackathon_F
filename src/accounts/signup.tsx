@@ -44,6 +44,7 @@ export const SignUp: React.FC = () => {
 
     useEffect(() => {
         logout();
+        document.title = 'アカウント新規登録 | Fu-Dandori';
     }, [])
 
     return (

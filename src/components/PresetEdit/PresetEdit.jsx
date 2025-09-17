@@ -41,6 +41,7 @@ function PresetEdit() {
         if (id) {
             setId(id);
         }
+        document.title = 'プリセット編集 | Fu-Dandori';
     }, []);
 
     useEffect(() => {
