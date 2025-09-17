@@ -6,10 +6,12 @@ import Task from './EditTask';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import putPreset from '../../hooks/presetPut';
+import { deleteMultipleTasks } from '../../hooks/taskDelete';
 
 function PresetEdit() {
     const navigate = useNavigate();
     const [id, setId] = useState(0);
+    const [originalTaskIds, setOriginalTaskIds] = useState([]); // 元のタスクIDを保持
 
     const {
         register,
@@ -60,6 +62,9 @@ function PresetEdit() {
                         importance: Number(task.Importance)
                     }))
                 });
+
+                // 元のタスクIDを保存
+                setOriginalTaskIds(tasksData.map(task => task.id));
             };
 
             fetchData();
@@ -72,7 +77,20 @@ function PresetEdit() {
             tasktime: Number(task.tasktime),
             importance: Number(task.importance)
         }));
+
+        // 現在のタスクIDを取得
+        const currentTaskIds = tasks.filter(task => task.id).map(task => task.id);
+        
+        // 削除されたタスクIDを特定
+        const deletedTaskIds = originalTaskIds.filter(id => !currentTaskIds.includes(id));
+
         try {
+            // 削除されたタスクをデータベースから削除
+            if (deletedTaskIds.length > 0) {
+                await deleteMultipleTasks(deletedTaskIds);
+                console.log(`${deletedTaskIds.length}個のタスクを削除しました`);
+            }
+
             const response = await putPreset(id, data.name, data.finishtime, tasks);
             console.log(response);
             toast.success(
@@ -87,6 +105,7 @@ function PresetEdit() {
             );
         } catch (error) {
             console.error(error);
+            toast.error("プリセットの更新に失敗しました");
         }
     }
 
