@@ -1,6 +1,6 @@
 import putTask from './taskPut';  
 
-const putPreset = async (id, name, finishtime, tasks) => {
+const putPreset = async (id, name, finishtime, tasks, user_id) => {
 
     const response = await fetch(`https://two025-hackathon-json.onrender.com/presets/${id}`, {
 
@@ -11,7 +11,8 @@ const putPreset = async (id, name, finishtime, tasks) => {
         body: JSON.stringify({
             id: id,
             preset_name: name,
-            finish_time: finishtime
+            finish_time: finishtime,
+            user_id: user_id
         }),
     });
 

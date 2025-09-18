@@ -7,11 +7,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import putPreset from '../../hooks/presetPut';
 import { deleteMultipleTasks } from '../../hooks/taskDelete';
+import { useCookies } from 'react-cookie';
 
 function PresetEdit() {
     const navigate = useNavigate();
     const [id, setId] = useState(0);
     const [originalTaskIds, setOriginalTaskIds] = useState([]); // 元のタスクIDを保持
+    const [cookies] = useCookies();
 
     const {
         register,
@@ -94,7 +96,7 @@ function PresetEdit() {
                 console.log(`${deletedTaskIds.length}個のタスクを削除しました`);
             }
 
-            const response = await putPreset(id, data.name, data.finishtime, tasks);
+            const response = await putPreset(id, data.name, data.finishtime, tasks, cookies.id);
             console.log(response);
             toast.success(
                 <div>
