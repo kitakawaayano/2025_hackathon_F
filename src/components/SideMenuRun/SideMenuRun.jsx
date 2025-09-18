@@ -23,8 +23,8 @@ function SideMenuRun({ filteredTasks, completedCount }) {
   }, []);
 
   const getTime = async () => {
-    // const response = await fetch('https://2025-hackathon-f-json.vercel.app/presets', {
-    const response = await fetch('http://localhost:3000/presets', { // 後で戻す
+    // const response = await fetch('http://localhost:3000/presets', {
+    const response = await fetch('https://2025-hackathon-f-json.vercel.app/presets', {
         method: 'GET',
         header: {
             'Content-Type': 'application/json',
@@ -164,15 +164,15 @@ function SideMenuRun({ filteredTasks, completedCount }) {
 
     if (Array.isArray(filteredTasks)) {
       for (const task of filteredTasks) {
-          // await fetch(`https://2025-hackathon-f-json.vercel.app/tasks/${task.id}`, {
-          await fetch(`http://localhost:3000/tasks/${task.id}`, { // 後で戻す
+        // await fetch(`http://localhost:3000/tasks/${task.id}`, {
+          await fetch(`https://2025-hackathon-f-json.vercel.app/tasks/${task.id}`, {
               method: 'DELETE'
           });
       }
     }
 
-    // await fetch(`https://2025-hackathon-f-json.vercel.app/presets/${id}`, {
-    await fetch(`http://localhost:3000/presets/${id}`, {  // 後で戻す
+    // await fetch(`http://localhost:3000/presets/${id}`, {
+      await fetch(`https://2025-hackathon-f-json.vercel.app/presets/${id}`, {
         method: 'DELETE'
     });
 
