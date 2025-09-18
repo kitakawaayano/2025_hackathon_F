@@ -13,17 +13,19 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isInitialized, setIsInitialized] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(['id', 'username']);
 
   useEffect(() => {
-    // Cookieから認証状態を復元
+    // 初期化時にCookieから認証状態を復元
     if (cookies.id && cookies.username) {
       setUser({
         id: cookies.id,
         username: cookies.username
       });
     }
-  }, [cookies]);
+    setIsInitialized(true);
+  }, [cookies.id, cookies.username]);
 
   const login = async (username, password) => {
     try {
@@ -69,7 +71,8 @@ export const AuthProvider = ({ children }) => {
     user,
     login,
     logout,
-    isAuthenticated: !!user
+    isAuthenticated: !!user,
+    isInitialized
   };
 
   return (
