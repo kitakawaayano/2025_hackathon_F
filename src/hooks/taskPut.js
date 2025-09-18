@@ -2,7 +2,7 @@ import postTask from './task';
 
 const putTask = async (tasks, presetid) => {
 
-    const response = await fetch(`https://2025-hackathon-f-json.vercel.app/tasks/${tasks.id}`, {
+    const response = await fetch(`https://two025-hackathon-json.onrender.com/tasks/${tasks.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

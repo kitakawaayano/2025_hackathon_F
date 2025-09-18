@@ -21,7 +21,7 @@ function PresetTaskContainer() {
       tasks: [{ name: '', tasktime: '', importance: '1' }]
     }
   });
-  const [cookies, setCookie] = useCookies(['id']);
+  const [cookies] = useCookies(['id']);
 
   const { fields, append, remove } = useFieldArray({
       control,

@@ -6,7 +6,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import SortButton from '../SortButton/SortButton';
 
 const getPreset = async (userId) => { 
-    const response = await fetch(`https://2025-hackathon-f-json.vercel.app/presets${userId ? `?user_id=${userId}` : ''}`, {
+    const response = await fetch(`https://two025-hackathon-json.onrender.com/presets${ userId ? `?user_id=${userId}` : ''}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ const getPreset = async (userId) => {
 const getTask = async (userId) => { 
     try {
         // まずユーザーのプリセットIDを取得
-        const presetsResponse = await fetch(`https://2025-hackathon-f-json.vercel.app/presets${ userId ? `?user_id=${userId}` : ''}`, {
+        const presetsResponse = await fetch(`https://two025-hackathon-json.onrender.com/presets${ userId ? `?user_id=${userId}` : ''}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ const getTask = async (userId) => {
         }
         
         // 全てのタスクを取得してユーザーのプリセットに関連するもののみフィルタ
-        const tasksResponse = await fetch(`https://2025-hackathon-f-json.vercel.app/tasks`, {
+        const tasksResponse = await fetch(`https://two025-hackathon-json.onrender.com/tasks`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -64,13 +64,6 @@ function PresetList() {
     });
 
 
-    useEffect(() => {
-        console.log(user)
-        getPreset(user).then(result => {
-            setData(result);
-            // console.log(result);
-        });
-    }, []);
 
     const { user } = useAuth(); // 認証コンテキストからユーザー情報を取得
 
@@ -125,12 +118,12 @@ function PresetList() {
         try {
             const relatedTasks = tasks.filter(task => task.preset_id === id);
             for (const task of relatedTasks) {
-                await fetch(`https://2025-hackathon-f-json.vercel.app/tasks/${task.id}`, {
+                await fetch(`https://two025-hackathon-json.onrender.com/tasks/${task.id}`, {
                     method: 'DELETE'
                 });
             }
 
-            await fetch(`https://2025-hackathon-f-json.vercel.app/presets/${id}`, {
+            await fetch(`https://two025-hackathon-json.onrender.com/presets/${id}`, {
                 method: 'DELETE'
             });
             toast.success("プリセットを削除しました");

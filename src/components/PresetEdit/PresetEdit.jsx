@@ -46,10 +46,10 @@ function PresetEdit() {
     useEffect(() => {
         if (id) {
             const fetchData = async () => {
-                const presetResponse = await fetch(`https://2025-hackathon-f-json.vercel.app/presets/${id}`);
+                const presetResponse = await fetch(`https://two025-hackathon-json.onrender.com/presets/${id}`);
                 const presetData = await presetResponse.json();
 
-                const tasksResponse = await fetch(`https://2025-hackathon-f-json.vercel.app/tasks?preset_id=${id}`);
+                const tasksResponse = await fetch(`https://two025-hackathon-json.onrender.com/tasks?preset_id=${id}`);
                 const tasksData = await tasksResponse.json();
 
                 reset({

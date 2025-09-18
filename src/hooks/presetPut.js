@@ -2,7 +2,7 @@ import putTask from './taskPut';
 
 const putPreset = async (id, name, finishtime, tasks) => {
 
-    const response = await fetch(`https://2025-hackathon-f-json.vercel.app/presets/${id}`, {
+    const response = await fetch(`https://two025-hackathon-json.onrender.com/presets/${id}`, {
 
         method: 'PUT',
         headers: {

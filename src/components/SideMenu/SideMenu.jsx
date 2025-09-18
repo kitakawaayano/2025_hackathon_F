@@ -27,7 +27,7 @@ const SideMenu = () => {
 
         <div className='sidemenu-button-container'>
           <button type="submit" onClick={handleLogout} className='preset-list-logoutButton'>
-            <span class="material-symbols-outlined">logout</span>
+            <span className="material-symbols-outlined">logout</span>
             <span>ログアウト</span>
           </button>
         </div>
