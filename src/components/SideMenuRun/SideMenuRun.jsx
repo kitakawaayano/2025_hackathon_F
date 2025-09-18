@@ -15,6 +15,10 @@ function SideMenuRun({ filteredTasks, completedCount }) {
   const [timerflg, setflg] = useState(true);
   const [mode, setMode ] = useState(0)
   const taskCount = Array.isArray(filteredTasks) ? filteredTasks.length : 0;
+  const [stophours, setstophours] = useState(0);
+  const [stopminutes, setstopminutes] = useState(0);
+  const [stopseconds, setstopseconds] = useState(0);
+
 
   useEffect(() => {
     let urlStr = window.location.href;
@@ -51,7 +55,9 @@ function SideMenuRun({ filteredTasks, completedCount }) {
 
   const getDiffTime = (finishTime) => {
     const now = new Date();
+    console.log(now);
     const finish = new Date();
+    console.log(now);
     const [hours, minutes] = finishTime.split(':');
     
     finish.setHours(parseInt(hours), parseInt(minutes), 0, 0);
@@ -69,6 +75,10 @@ function SideMenuRun({ filteredTasks, completedCount }) {
     const hoursDiff = Math.floor(diff / 1000 / 60 / 60);
     const minutesDiff = Math.floor((diff / 1000 / 60) % 60);
     const secondsDiff = Math.floor((diff / 1000) % 60);
+    setHoursDiff(hoursDiff);
+    setMinuteDiff(minutesDiff);
+    setSecondsDiff(secondsDiff);
+
 
     return { hoursDiff, minutesDiff, secondsDiff, mode };
   };
@@ -155,7 +165,11 @@ function SideMenuRun({ filteredTasks, completedCount }) {
 
   useEffect(() => {
     if (completedCount == taskCount && taskCount > 0){
-      setflg(false);
+      setstophours(hourstime);
+      setstopminutes(minutetime);
+      setstopseconds(secondstime);
+    } else if (completedCount != taskCount && taskCount > 0){
+      getDiffTime(finishtime);
     }
   }, [completedCount])
 
@@ -206,6 +220,11 @@ function SideMenuRun({ filteredTasks, completedCount }) {
             <span className='remaining-time mildRed-text big-text'>
               {DigestNum(hourstime)}:{DigestNum(minutetime)}:{DigestNum(secondstime)}
             </span>
+            <span className='remaining-time mildRed-text big-text'>
+              完了
+              {DigestNum(stophours)}:{DigestNum(stopminutes)}:{DigestNum(stopseconds)}
+            </span>
+            
             {mode === 'countUp' && <span><span className="mildRed-text">超過</span></span>}
           </h3>
 
