@@ -6,7 +6,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import SortButton from '../SortButton/SortButton';
 
 const getPreset = async (userId) => { 
-
+    if (!userId) return [];
     const response = await fetch(`https://two025-hackathon-json.onrender.com/presets${ userId ? `?user_id=${userId}` : ''}`, {
 
         method: 'GET',
