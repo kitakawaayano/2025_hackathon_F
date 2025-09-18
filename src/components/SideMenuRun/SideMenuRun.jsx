@@ -220,23 +220,25 @@ function SideMenuRun({ filteredTasks, completedCount }) {
             <span className='remaining-time mildRed-text big-text'>
               {DigestNum(hourstime)}:{DigestNum(minutetime)}:{DigestNum(secondstime)}
             </span>
-            <span className='remaining-time mildRed-text big-text'>
-              完了
-              {DigestNum(stophours)}:{DigestNum(stopminutes)}:{DigestNum(stopseconds)}
-            </span>
-            
             {mode === 'countUp' && <span><span className="mildRed-text">超過</span></span>}
           </h3>
 
           <h3>
-            <span className='gray-text'>タスク進捗</span>
             {taskCount !== completedCount ?
+            <>
+              <span className='gray-text'>タスク進捗</span>
               <span>
                 <span className="mildRed-text big-text">{completedCount}</span>
                 <span className='gray-text'>/{taskCount}</span>
               </span>
+            </>
             :
+            <>
+              <span className='gray-text'>
+                残り時間{DigestNum(stophours)}:{DigestNum(stopminutes)}:{DigestNum(stopseconds)}で
+              </span>
               <span className='gray-text big-text'>全て完了</span>
+            </>
             }
           </h3>
         </div>
