@@ -11,6 +11,10 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
+.preset-search-container .material-symbols-outlined {
+  color: var(--gray);
+}
+
 .preset-search-input {
     border: none;
     outline: none;
@@ -18,8 +22,9 @@
     width: 100%;
 }
 
-.preset-search-container .material-symbols-outlined {
-    color: var(--gray);
+.preset-search-container:has(.preset-search-input:focus) {
+  outline: 1px solid var(--main-color);
+  box-shadow: 0 0 0 3px rgba(101, 128, 217, 0.2);
 }
 
 .preset-list-container {
@@ -28,27 +33,52 @@
   gap: 1rem;
 }
 
+.preset-list-empty {
+  text-align: center;
+  color: var(--gray);
+  font-size: 1.2rem;
+  margin: 2rem auto;
+  display: inline-flex;
+  align-items: center;
+}
+
+.preset-list-empty .material-symbols-outlined {
+  font-size: 2rem;
+}
+
 .preset-list-item {
   background-color: var(--mild-gray);
   color: var(--black);
   border-radius: 1rem;
-  padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   text-decoration: none;
   transition: all 0.2s ease;
   position: relative;
 }
 
+.preset-list-item a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+}
+
 .preset-list-item:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  background: linear-gradient(180deg, var(--main-color), #556ed1);
 }
 
 .preset-name {
   font-size: 1.2rem;
-  font-weight: normal;
+  font-weight: 400;
   color: var(--black);
   margin-right: 1.7rem;
+}
+
+.preset-list-item:hover .preset-name {
+  font-weight: 700;
+  color: var(--white);
 }
 
 .preset-info-ul {
@@ -60,6 +90,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0 1rem;
+}
+
+.preset-list-item:hover .preset-info-ul * {
+  color: var(--mild-gray);
 }
 
 .preset-info-item {
@@ -82,16 +116,24 @@
   position: absolute;
   top: 1rem;
   right: 1rem;
-  color: var(--gray);
+  height: 2rem;
+  width: 2rem;
+  color: var(--mild-gray);
   border: none;
+  border-radius: 100vmax;
   background-color: transparent;
   padding: 0.1rem;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
+.preset-list-deleteButton .material-symbols-outlined {
+  margin-top: 0.2rem;
+}
+
 .preset-list-deleteButton:hover {
   color: var(--mild-red);
+  background-color: var(--white);
 }
 
 @media screen and (max-width: 1000px) {

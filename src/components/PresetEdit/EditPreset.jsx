@@ -8,8 +8,10 @@ function Preset({
     <div>
       <div className='input-container'>
         <label htmlFor='preset-name'>
-          <span className="material-symbols-outlined">match_case</span>
-          プリセット名
+          <div>
+            <span className="material-symbols-outlined">match_case</span>
+            プリセット名
+          </div>
           </label>
         <input
           type="text"
@@ -32,8 +34,10 @@ function Preset({
       </div>
       <div className='input-container'>
         <label htmlFor='finish-time'>
-          <span className="material-symbols-outlined">alarm</span>
-          終了目標時刻
+          <div>
+            <span className="material-symbols-outlined">alarm</span>
+            終了目標時刻
+          </div>
         </label>
         <input
           type="time"

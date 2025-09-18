@@ -23,6 +23,7 @@ function SideMenuRun({ filteredTasks, completedCount }) {
   }, []);
 
   const getTime = async () => {
+    // const response = await fetch('http://localhost:3000/presets', {
     const response = await fetch('https://2025-hackathon-f-json.vercel.app/presets', {
         method: 'GET',
         header: {
@@ -151,12 +152,6 @@ function SideMenuRun({ filteredTasks, completedCount }) {
     return ("0" + num).slice(-2);
   };
 
-  useEffect(() => {
-    if (completedCount == taskCount && taskCount > 0){
-      setflg(false);
-    }
-  }, [completedCount])
-
   const location = useLocation();
 
   const navigate = useNavigate();
@@ -169,13 +164,15 @@ function SideMenuRun({ filteredTasks, completedCount }) {
 
     if (Array.isArray(filteredTasks)) {
       for (const task of filteredTasks) {
+        // await fetch(`http://localhost:3000/tasks/${task.id}`, {
           await fetch(`https://2025-hackathon-f-json.vercel.app/tasks/${task.id}`, {
               method: 'DELETE'
           });
       }
     }
 
-    await fetch(`https://2025-hackathon-f-json.vercel.app/presets/${id}`, {
+    // await fetch(`http://localhost:3000/presets/${id}`, {
+      await fetch(`https://2025-hackathon-f-json.vercel.app/presets/${id}`, {
         method: 'DELETE'
     });
 
@@ -188,7 +185,7 @@ function SideMenuRun({ filteredTasks, completedCount }) {
     <div className='sidemenu-area'>
       <div className="sidemenu">
         <h1 className="app-name">
-          <Link to="/preset-list">アプリ名</Link>
+          <Link to="/preset-list">Fu-Dandori</Link>
         </h1>
 
         <div className='sidemenu-info-container'>

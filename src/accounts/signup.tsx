@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { ToastContainer, toast } from 'react-toastify';
+import { useAuth } from '../contexts/AuthContext';
 import './accounts.css';
 
 export const SignUp: React.FC = () => {
@@ -16,15 +17,18 @@ export const SignUp: React.FC = () => {
     } = useForm();
 
     const navigate = useNavigate();
+    const { logout } = useAuth();
 
     const onSubmit = async ( data: any ) => {
         try {
+            // const uniqueCheck = await axios.get(`http://localhost:3000/users?user_name=${data.user_name}`);
             const uniqueCheck = await axios.get(`https://2025-hackathon-f-json.vercel.app/users?user_name=${data.user_name}`);
             if (uniqueCheck.data.length > 0) {
                 toast.error("アカウントの作成に失敗しました");
                 return;
             }
 
+            // const response = await axios.post('http://localhost:3000/users', {
             const response = await axios.post('https://2025-hackathon-f-json.vercel.app/users', {
                 user_name: data.user_name,
                 password: data.pw,
@@ -38,18 +42,25 @@ export const SignUp: React.FC = () => {
         }
     }
 
+    useEffect(() => {
+        logout();
+        document.title = 'アカウント新規登録 | Fu-Dandori';
+    }, [])
+
     return (
         <main className='account-main'>
             <div className='account-appName-container'>
-                <h1 className="app-name">アプリ名</h1>
+                <h1 className="app-name">Fu-Dandori</h1>
             </div>
             <div className="Register account-content-area">
                 <h2 className='page-title'>アカウント新規登録</h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="Form">
                     <div className='input-container'>
                         <label htmlFor="user_name">
-                            <span className="material-symbols-outlined">person</span>
-                            ユーザー名
+                            <div>
+                                <span className="material-symbols-outlined">person</span>
+                                ユーザー名
+                            </div>
                         </label>
                         <input
                             type="text"
@@ -76,8 +87,10 @@ export const SignUp: React.FC = () => {
                     </div>
                     <div className='input-container'>
                         <label htmlFor="pw">
-                            <span className="material-symbols-outlined">key_vertical</span>
-                            パスワード
+                            <div>
+                                <span className="material-symbols-outlined">key_vertical</span>
+                                パスワード
+                            </div>
                         </label>
                         <input
                             type="password"
@@ -104,8 +117,10 @@ export const SignUp: React.FC = () => {
                     </div>
                     <div className='input-container'>
                         <label htmlFor="pw_con">
-                            <span className="material-symbols-outlined">check_circle</span>
-                            パスワード(確認)
+                            <div>
+                                <span className="material-symbols-outlined">check_circle</span>
+                                パスワード(確認)
+                            </div>
                         </label>
                         <input
                             type="password"
@@ -124,7 +139,10 @@ export const SignUp: React.FC = () => {
                         />
                     </div>
                     <div className='account-link-container'>
-                        <Link to={`/login`}>すでにアカウントをお持ちの方はこちら</Link>
+                        <Link to={`/login`}>
+                            <span>すでにアカウントを</span>
+                            <span>お持ちの方はこちら</span>
+                        </Link>
                     </div>
                     <div className='button-container'>
                         <button type="submit" className='main-button'>登録</button>

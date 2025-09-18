@@ -6,6 +6,7 @@
   border-bottom: 0.1rem solid var(--mild-gray);
   display: flex;
   gap: 0.5rem;
+  align-items: center;
 }
 
 .preset-sortButton-container button {
@@ -19,6 +20,12 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   display: inline-flex;
   align-items: center;
+  transition: all 0.2s ease;
+}
+
+.preset-sortButton-container button:hover {
+  background-color: var(--main-color);
+  color: var(--white);
 }
 
 .preset-sortButton-container .active-sortButton {

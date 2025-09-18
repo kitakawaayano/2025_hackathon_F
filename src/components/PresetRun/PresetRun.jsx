@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 const getPreset = async (presetId) => { 
+  // const response = await fetch(`http://localhost:3000/presets/${presetId}`, {
     const response = await fetch(`https://2025-hackathon-f-json.vercel.app/presets/${presetId}`, {
         method: 'GET',
         header: {
@@ -16,6 +17,7 @@ const getPreset = async (presetId) => {
 }
 
 const getTask = async (presetId) => { 
+  // const response = await fetch('http://localhost:3000/tasks', {
     const response = await fetch('https://2025-hackathon-f-json.vercel.app/tasks', {
         method: 'GET',
         header: {
@@ -53,6 +55,7 @@ function PresetRun({ setFilteredTasks, setCompletedCount }) {
     useEffect(() => {
         getPreset(presetId).then(result => {
           setPreset(result);
+          document.title = `${result.preset_name} | Fu-Dandori`;
         });
         getTask(presetId).then(filteredTask => {
           setTasks(filteredTask)
