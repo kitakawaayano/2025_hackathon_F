@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (username, password) => {
     try {
       const response = await fetch("https://two025-hackathon-json.onrender.com/users", {
+
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

@@ -7,7 +7,7 @@
 
 .task-table th {
   font-size: 1rem;
-  font-weight: normal;
+  font-weight: 400;
   text-align: left;
 }
 
@@ -39,6 +39,7 @@
   padding-left: 0.2rem;
 }
 
+.task-input-caption-container,
 .task-input-caption {
   display: none;
 }
@@ -74,6 +75,10 @@
     padding-left: 0;
   }
 
+  .task-input-caption-container {
+    display: block;
+  }
+
   .task-input-caption {
     display: inline-flex;
     align-items: center;
@@ -84,12 +89,6 @@
     margin-bottom: 0.5rem;
   }
 
-  .task-table td::before {
-    content: attr(data-label);
-    font-weight: bold;
-    display: block;
-    margin-bottom: 0.3rem;
-  }
 
   .task-table [type="text"],
   .task-table [type="number"],
@@ -102,7 +101,9 @@
     margin-top: 0.5rem;
   }
 
-  .close-button-td {
-    text-align: center;
+  .task-table .close-button-td {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }

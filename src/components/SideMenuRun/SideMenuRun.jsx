@@ -23,7 +23,9 @@ function SideMenuRun({ filteredTasks, completedCount }) {
   }, []);
 
   const getTime = async () => {
+
     const response = await fetch('https://two025-hackathon-json.onrender.com/presets', {
+
         method: 'GET',
         header: {
             'Content-Type': 'application/json',
@@ -151,12 +153,6 @@ function SideMenuRun({ filteredTasks, completedCount }) {
     return ("0" + num).slice(-2);
   };
 
-  useEffect(() => {
-    if (completedCount == taskCount && taskCount > 0){
-      setflg(false);
-    }
-  }, [completedCount])
-
   const location = useLocation();
 
   const navigate = useNavigate();
@@ -176,6 +172,7 @@ function SideMenuRun({ filteredTasks, completedCount }) {
     }
 
     await fetch(`https://two025-hackathon-json.onrender.com/presets/${id}`, {
+
         method: 'DELETE'
     });
 
@@ -188,7 +185,7 @@ function SideMenuRun({ filteredTasks, completedCount }) {
     <div className='sidemenu-area'>
       <div className="sidemenu">
         <h1 className="app-name">
-          <Link to="/preset-list">アプリ名</Link>
+          <Link to="/preset-list">Fu-Dandori</Link>
         </h1>
 
         <div className='sidemenu-info-container'>

@@ -41,15 +41,18 @@ function PresetEdit() {
         if (id) {
             setId(id);
         }
+        document.title = 'プリセット編集 | Fu-Dandori';
     }, []);
 
     useEffect(() => {
         if (id) {
             const fetchData = async () => {
+
                 const presetResponse = await fetch(`https://two025-hackathon-json.onrender.com/presets/${id}`);
                 const presetData = await presetResponse.json();
 
                 const tasksResponse = await fetch(`https://two025-hackathon-json.onrender.com/tasks?preset_id=${id}`);
+
                 const tasksData = await tasksResponse.json();
 
                 reset({

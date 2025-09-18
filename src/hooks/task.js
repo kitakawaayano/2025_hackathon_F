@@ -1,5 +1,4 @@
 const postTask = async (tasks, presetid) => {
-
     const response = await fetch('https://two025-hackathon-json.onrender.com/tasks', {
         method: 'POST',
         headers: {

@@ -6,7 +6,9 @@ import { useAuth } from '../../contexts/AuthContext';
 import SortButton from '../SortButton/SortButton';
 
 const getPreset = async (userId) => { 
+
     const response = await fetch(`https://two025-hackathon-json.onrender.com/presets${ userId ? `?user_id=${userId}` : ''}`, {
+
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -21,7 +23,9 @@ const getPreset = async (userId) => {
 const getTask = async (userId) => { 
     try {
         // まずユーザーのプリセットIDを取得
+
         const presetsResponse = await fetch(`https://two025-hackathon-json.onrender.com/presets${ userId ? `?user_id=${userId}` : ''}`, {
+
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -36,7 +40,9 @@ const getTask = async (userId) => {
         }
         
         // 全てのタスクを取得してユーザーのプリセットに関連するもののみフィルタ
+
         const tasksResponse = await fetch(`https://two025-hackathon-json.onrender.com/tasks`, {
+
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -63,6 +69,11 @@ function PresetList() {
         order: 'asc'
     });
 
+
+
+    useEffect(() => {
+        document.title = 'プリセット一覧 | Fu-Dandori';
+    }, []);
 
 
     const { user } = useAuth(); // 認証コンテキストからユーザー情報を取得
@@ -118,12 +129,16 @@ function PresetList() {
         try {
             const relatedTasks = tasks.filter(task => task.preset_id === id);
             for (const task of relatedTasks) {
+
                 await fetch(`https://two025-hackathon-json.onrender.com/tasks/${task.id}`, {
+
                     method: 'DELETE'
                 });
             }
 
+
             await fetch(`https://two025-hackathon-json.onrender.com/presets/${id}`, {
+
                 method: 'DELETE'
             });
             toast.success("プリセットを削除しました");
@@ -139,10 +154,13 @@ function PresetList() {
     const location = useLocation();
 
     useEffect(() => {
-    if (location.state?.deleted) {
-        toast.success('プリセットを削除しました');
+        if (location.state?.login) {
+            toast.success('ログインに成功しました');
+        }
+        if (location.state?.deleted) {
+            toast.success('プリセットを削除しました');
+        }
         window.history.replaceState({}, document.title);
-    }
     }, [location]);
 
     const handleSearchChange = (event) => {
@@ -200,12 +218,13 @@ function PresetList() {
             />
         </div>
         <div className='preset-sortButton-container'>
+            <span>並べ替え : </span>
             <SortButton
                 sort='preset_name'
                 handleSort={handleSort}
                 className={sortConfig.key === 'preset_name' ? 'active-sortButton' : ''}>
 
-                名前順 {sortConfig.key === 'preset_name' && (sortConfig.order === 'asc' ?
+                名前 {sortConfig.key === 'preset_name' && (sortConfig.order === 'asc' ?
                 <span className="material-symbols-outlined">keyboard_arrow_up</span> :
                 <span className="material-symbols-outlined">keyboard_arrow_down</span>)}
             </SortButton>
@@ -216,12 +235,19 @@ function PresetList() {
                 className={sortConfig.key === 'finish_time' ? 'active-sortButton' : ''}>
 
 
-                終了目標時刻順 {sortConfig.key === 'finish_time' && (sortConfig.order === 'asc' ?
+                終了目標時刻 {sortConfig.key === 'finish_time' && (sortConfig.order === 'asc' ?
                 <span className="material-symbols-outlined">keyboard_arrow_up</span> :
                 <span className="material-symbols-outlined">keyboard_arrow_down</span>)}
             </SortButton>
         </div>
         <div className='preset-list-container'>
+            {sortedData.length === 0 ?
+                <div className='preset-list-empty'>
+                    <span className="material-symbols-outlined">exclamation</span>
+                    プリセットがありません
+                </div>
+            : ''}
+
             {sortedData.map(preset =>
                 <div key={preset.id} className='preset-list-item'>
                     <Link to={`/preset-run/${preset.id}`} className='no-textDecoration'>

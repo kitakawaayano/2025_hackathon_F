@@ -1,6 +1,7 @@
 const deleteTask = async (taskId) => {
     try {
         const response = await fetch(`https://two025-hackathon-json.onrender.com/tasks/${taskId}`, {
+
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

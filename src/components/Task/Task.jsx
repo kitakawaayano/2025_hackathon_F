@@ -38,10 +38,12 @@ function Task({
                     {fields.map((field, index) => (
                     <tr key={field.id}>
                         <td className='task-td-widthAuto'>
-                            <span className='task-input-caption'>
-                                <span className="material-symbols-outlined">check_box</span>
-                                タスク名
-                            </span>
+                            <div className='task-input-caption-container'>
+                                <span className='task-input-caption'>
+                                    <span className="material-symbols-outlined">check_box</span>
+                                    タスク名
+                                </span>
+                            </div>
                             <input
                                 type="text"
                                 placeholder='タスク名を入力'
@@ -61,10 +63,12 @@ function Task({
                             />
                         </td>
                         <td className='task-td-width10'>
-                            <span className='task-input-caption'>
-                                <span className="material-symbols-outlined">timelapse</span>
-                                所要時間
-                            </span>
+                            <div className='task-input-caption-container'>
+                                <span className='task-input-caption'>
+                                    <span className="material-symbols-outlined">timelapse</span>
+                                    所要時間
+                                </span>
+                            </div>
                             <input
                                 type="number"
                                 className={errors.tasks?.[index]?.tasktime ? 'error-input' : ''}
@@ -87,10 +91,12 @@ function Task({
                             />
                         </td>
                         <td className='task-td-width10'>
-                            <span className='task-input-caption'>
-                                <span className="material-symbols-outlined">star</span>
-                                重要度
-                            </span>
+                            <div className='task-input-caption-container'>
+                                <span className='task-input-caption'>
+                                    <span className="material-symbols-outlined">star</span>
+                                    重要度
+                                </span>
+                            </div>
                             <select
                                 className={errors.tasks?.[index]?.importance ? 'error-input' : ''}
                                 {...register(`tasks.${index}.importance`, {

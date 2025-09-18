@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -52,6 +52,10 @@ function PresetTaskContainer() {
       toast.error("プリセットの登録に失敗しました");
     }
   };
+
+  useEffect(() => {
+      document.title = 'プリセット登録 | Fu-Dandori';
+  }, []);
 
   return (
     <>
