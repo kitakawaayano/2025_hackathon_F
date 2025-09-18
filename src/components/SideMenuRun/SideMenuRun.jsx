@@ -23,8 +23,9 @@ function SideMenuRun({ filteredTasks, completedCount }) {
   }, []);
 
   const getTime = async () => {
-    // const response = await fetch('http://localhost:3000/presets', {
-    const response = await fetch('https://2025-hackathon-f-json.vercel.app/presets', {
+
+    const response = await fetch('https://two025-hackathon-json.onrender.com/presets', {
+
         method: 'GET',
         header: {
             'Content-Type': 'application/json',
@@ -164,15 +165,14 @@ function SideMenuRun({ filteredTasks, completedCount }) {
 
     if (Array.isArray(filteredTasks)) {
       for (const task of filteredTasks) {
-        // await fetch(`http://localhost:3000/tasks/${task.id}`, {
-          await fetch(`https://2025-hackathon-f-json.vercel.app/tasks/${task.id}`, {
+          await fetch(`https://two025-hackathon-json.onrender.com/tasks/${task.id}`, {
               method: 'DELETE'
           });
       }
     }
 
-    // await fetch(`http://localhost:3000/presets/${id}`, {
-      await fetch(`https://2025-hackathon-f-json.vercel.app/presets/${id}`, {
+    await fetch(`https://two025-hackathon-json.onrender.com/presets/${id}`, {
+
         method: 'DELETE'
     });
 

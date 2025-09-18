@@ -1,7 +1,7 @@
 const deleteTask = async (taskId) => {
     try {
-        // const response = await fetch(`http://localhost:3000/tasks/${taskId}`, {
-        const response = await fetch(`https://2025-hackathon-f-json.vercel.app/tasks/${taskId}`, {
+        const response = await fetch(`https://two025-hackathon-json.onrender.com/tasks/${taskId}`, {
+
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
