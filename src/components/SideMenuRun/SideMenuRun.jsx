@@ -153,6 +153,13 @@ function SideMenuRun({ filteredTasks, completedCount }) {
     return ("0" + num).slice(-2);
   };
 
+  useEffect(() => {
+    if (completedCount == taskCount && taskCount > 0){
+      setflg(false);
+    }
+  }, [completedCount])
+
+
   const location = useLocation();
 
   const navigate = useNavigate();
