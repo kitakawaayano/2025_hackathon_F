@@ -18,7 +18,7 @@ const getPreset = async (presetId) => {
 
 const getTask = async (presetId) => { 
 
-    const response = await fetch('https://two025-hackathon-json.onrender.com/tasks', {
+    const response = await fetch(`https://two025-hackathon-json.onrender.com/tasks?preset_id=${presetId}`, {
 
         method: 'GET',
         header: {
@@ -27,9 +27,10 @@ const getTask = async (presetId) => {
     });
 
     const data = await response.json();
-    const filteredData = data.filter(task => task.preset_id === presetId);
-    // console.log(filteredData);
-    return filteredData;
+    // const filteredData = data.filter(task => task.preset_id === presetId);
+    // // console.log(filteredData);
+    // return filteredData;
+    return data;
 }
 
 function PresetRun({ setFilteredTasks, setCompletedCount }) {
